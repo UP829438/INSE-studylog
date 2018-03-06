@@ -7,6 +7,20 @@ const studylog = require('./sql-queries.js');
 
 const GoogleAuth = require('simple-google-openid');
 
+let testData =
+{
+  "units": [
+    {
+      "unitName": "INSE",
+      "hours": 12,
+      "assignments": {
+        "name": "studyLog",
+        "date": "12/12/12"
+      }
+    }
+  ]
+};
+
 // you can put your client ID here
 app.use(GoogleAuth('746020260242-u21lib7b97qo83m3j6joi0gi81re3t7d.apps.googleusercontent.com'));
 

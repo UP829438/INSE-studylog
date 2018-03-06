@@ -40,6 +40,15 @@ body {
   color: white;
 }
 
+#canvasArea {
+  padding: 2em 0 0 2em;
+}
+
+canvas {
+  border-style: solid;
+  border-color: black;
+}
+
 /* fieldset {
   background-color: #B88E8D;
   display: block;

@@ -16,6 +16,12 @@ async function addUnit(unitname, userid) {
   await sql.query(insertQuery);
 }
 
+async function getAllUnits(userid){
+  const sql = await init();
+  const outputQuery = sql.format('SELECT * FROM `Unit` WHERE `unitname` = ? ;', {userid});
+  return [rows, fields] = await sql.execute(outputQuery);
+}
+
 let sqlPromise = null;
 
 async function init() {
@@ -39,5 +45,6 @@ async function newConnection() {
 
 module.exports = {
   addUnit: addUnit,
-  addUser: addUser
+  addUser: addUser,
+  getAllUnits: getAllUnits
 }

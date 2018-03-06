@@ -1,4 +1,3 @@
-
  //                          _         _         _   _       _____                 _   _
  //   __ _  ___   ___   __ _| | ___   / \  _   _| |_| |__   |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
  //  / _` |/ _ \ / _ \ / _` | |/ _ \ / _ \| | | | __| '_ \  | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
@@ -57,16 +56,36 @@ async function addUser() {
 }
 
 
- async function addUnit() {
-   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-   let unit_name = document.getElementById('addvalue').value;
-   let addConfirm = document.getElementById('addconfirm');
-   console.log(addConfirm);
-   const fetchOptions = {
-     credentials: 'same-origin',
-     method: 'POST',
-     headers: { 'Authorization': 'Bearer ' + id_token },
-   };
-   addConfirm.textContent = "Added to SQL server";
-   const response = await fetch('/api/add?unitname=' + unit_name, fetchOptions);
- }
+async function addUnit() {
+  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  let unit_name = document.getElementById('addvalue').value;
+  let addConfirm = document.getElementById('addconfirm');
+  console.log(addConfirm);
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + id_token },
+  };
+  addConfirm.textContent = "Added to SQL server";
+  const response = await fetch('/api/add?unitname=' + unit_name, fetchOptions);
+}
+
+//Canvas Functions
+const c = document.getElementById("canvas").getContext("2d");
+
+function drawLine(c, fX, fY, tX, tY, colour) {
+  c.beginPath();
+  c.lineWidth = 2;
+  c.strokeStyle = colour;
+  c.fillStyle = colour;
+  c.moveTo(fX,fY);
+  c.lineTo(tX,tY);
+  c.stroke();
+}
+
+function initGraph() {
+  drawLine(c, 0,0,500,500,"black");
+  drawLine(c, 0, 500, 500, 500, "black")
+}
+
+initGraph();

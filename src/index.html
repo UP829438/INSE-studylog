@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="scripts.js"></script>
     <meta name="google-signin-client_id" content="746020260242-u21lib7b97qo83m3j6joi0gi81re3t7d.apps.googleusercontent.com">
     <title>Home Page</title>
 </head>
@@ -22,11 +21,13 @@
   <div id="addunit">
     <p>Add Unit</p>
     <input id="addvalue" type="text" name="unit_name" value="">
-    <input id="addsubmit" type="submit" value="Submit" onclick="addUnit()">
+    <input id="addsubmit" type="submit" value="Submit" onclick="initGraph()">
     <p id="addconfirm"></p>
   </div>
-
-
-
-
+  <div id="canvasArea">
+    <canvas id="canvas" width="500" height="600"></canvas>
+  </div>
 </body>
+
+
+<script src="scripts.js"></script>
