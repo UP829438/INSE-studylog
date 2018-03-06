@@ -3,6 +3,13 @@
 const mysql = require('mysql2/promise');
 const config = require('./config.json');
 
+async function addUser(userid) {
+  const sql = await init();
+  const insertQuery = sql.format('INSERT INTO User (googleCode) VALUES ("test") ;', {userid}); //This line is broken curerently - fix query
+  await sql.query(insertQuery);
+}
+
+
 async function addUnit(unitname, userid) {
   const sql = await init();
   const insertQuery = sql.format('INSERT INTO Unit SET ? ;', {unitname, userid});
@@ -31,5 +38,6 @@ async function newConnection() {
 }
 
 module.exports = {
-  addUnit: addUnit
+  addUnit: addUnit,
+  addUser: addUser
 }

@@ -31,3 +31,10 @@ app.post('/api/add', async (req, res) => {
   console.log(unitName);
   await studylog.addUnit(unitName, userId);
 });
+
+
+app.post('/api/user', async (req, res) => {
+  const userId = req.user.id;
+  console.log(userId);
+  await studylog.addUser(userId);
+});
