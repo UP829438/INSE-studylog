@@ -72,7 +72,18 @@ async function addUnit() {
 }
 
 //Canvas Functions
-const c = document.getElementById("canvas").getContext("2d");
+const canvas = document.getElementById("canvas");
+const c = canvas.getContext("2d");
+
+function setCanvasSize(canvas) {
+  canvas.width = (window.innerWidth/3)*2;
+  canvas.height = (window.innerHeight/3)*2;
+}
+
+function resetCanvas() {
+  setCanvasSize(canvas);
+  initGraph();
+}
 
 function drawLine(c, fX, fY, tX, tY, colour) {
   c.beginPath();
@@ -84,9 +95,29 @@ function drawLine(c, fX, fY, tX, tY, colour) {
   c.stroke();
 }
 
-function initGraph() {
-  drawLine(c, 0,0,500,500,"black");
-  drawLine(c, 0, 500, 500, 500, "black")
+function drawNotches(c, horizontal, startx, starty, endCoord, notches) {
+  if (horizontal) {
+    let xdif = (endCoord - startx)/notches;
+    for (let i = startx + xdif; i < endCoord; i+=xdif) {
+      drawLine(c, i, starty - 5, i, starty +5, "black");
+    }
+  } else {
+    let ydif = (endCoord - starty)/notches;
+    for (let i = starty + ydif; i < endCoord; i+=ydif) {
+      drawLine(c, startx - 5, i, startx + 5, i, "black");
+    }
+  }
 }
 
+function initGraph() {
+  let width = canvas.width;
+  let height = canvas.height;
+  drawLine(c, width/10, height/20, width/10, height-(height/20), "black");
+  drawLine(c, width/20, height-(height/10), width-(width/20), height-(height/10), "black")
+  drawNotches(c, true, width/10, height-(height/10), width-(width/20), 10);
+  drawNotches(c, false, width/10, height/20, height-(height/10), 10);
+}
+
+window.addEventListener('resize', resetCanvas);
+setCanvasSize(canvas);
 initGraph();
