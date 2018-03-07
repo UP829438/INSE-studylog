@@ -5,7 +5,7 @@ const config = require('./config.json');
 
 async function addUser(userid) {
   const sql = await init();
-  const insertQuery = sql.format('INSERT INTO User (googleCode) VALUES ("test") ;', {userid}); //This line is broken curerently - fix query
+  const insertQuery = sql.format('INSERT INTO User (googleCode) VALUES (?) ;', [userid])
   await sql.query(insertQuery);
 }
 

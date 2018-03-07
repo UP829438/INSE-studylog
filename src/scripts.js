@@ -52,6 +52,7 @@ async function addUser() {
     method: 'POST',
     headers: { 'Authorization': 'Bearer ' + id_token },
   };
+  console.log("user added");
   const response = await fetch('/api/user?id=' + id_token, fetchOptions);
 }
 
