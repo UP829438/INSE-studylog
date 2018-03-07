@@ -7,10 +7,11 @@ CREATE TABLE User ( -- create the table for storing Users
 );
 /*If we add password with hashing etc. then it will be stored in the users table*/
 
-CREATE TABLE Unit ( -- create the table for storing Units
+CREATE TABLE IF NOT EXISTS Unit ( -- create the table for storing Units
       ID INT NOT NULL AUTO_INCREMENT,
       userID INT NOT NULL,
       colour CHAR(7) NOT NULL,
+      credits INT DEFAULT 0, --If no credits defined store as zero and not as a NULL
       name VARCHAR(60) NOT NULL,
       PRIMARY KEY (id),
       FOREIGN KEY (userID) REFERENCES User(ID)
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS StudyHours ( -- create the table for storing Study Ho
      FOREIGN KEY (unitID) REFERENCES Unit(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Grade ( -- create the table for storing Calander Events
+CREATE TABLE IF NOT EXISTS Grade ( -- create the table for Grades
      ID INT NOT NULL AUTO_INCREMENT,
      unitID INT NOT NULL,
      title VARCHAR(40) NOT NULL,

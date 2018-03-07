@@ -59,8 +59,8 @@ async function addUser() {
 
 async function addUnit() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-  let unit_name = document.getElementById('addvalue').value;
-  let addConfirm = document.getElementById('addconfirm');
+  let unit_name = document.getElementById('addUnit').value;
+  let addConfirm = document.getElementById('UnitConfirm');
   console.log(addConfirm);
   const fetchOptions = {
     credentials: 'same-origin',
@@ -70,23 +70,3 @@ async function addUnit() {
   addConfirm.textContent = "Added to SQL server";
   const response = await fetch('/api/add?unitname=' + unit_name, fetchOptions);
 }
-
-//Canvas Functions
-const c = document.getElementById("canvas").getContext("2d");
-
-function drawLine(c, fX, fY, tX, tY, colour) {
-  c.beginPath();
-  c.lineWidth = 2;
-  c.strokeStyle = colour;
-  c.fillStyle = colour;
-  c.moveTo(fX,fY);
-  c.lineTo(tX,tY);
-  c.stroke();
-}
-
-function initGraph() {
-  drawLine(c, 0,0,500,500,"black");
-  drawLine(c, 0, 500, 500, 500, "black")
-}
-
-initGraph();

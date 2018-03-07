@@ -12,7 +12,7 @@ async function addUser(userid) {
 
 async function addUnit(unitname, userid) {
   const sql = await init();
-  const insertQuery = sql.format('INSERT INTO Unit SET ? ;', {unitname, userid});
+  const insertQuery = sql.format('insert into Unit (userID,colour,name) values (?)', {unitname, userid}); //needs work
   await sql.query(insertQuery);
 }
 
