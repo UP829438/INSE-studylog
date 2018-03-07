@@ -11,7 +11,7 @@ function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
   callServer();
-  addUser();
+  //addUser(); Moved this serverside
 }
 
 function signOut() {
@@ -45,16 +45,16 @@ async function callServer() {
  // |____/ \__\_\_____| |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
 
-async function addUser() {
-  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-  const fetchOptions = {
-    credentials: 'same-origin',
-    method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + id_token },
-  };
-  console.log("user added");
-  const response = await fetch('/api/user?id=' + id_token, fetchOptions);
-}
+// async function addUser() {
+//   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+//   const fetchOptions = {
+//     credentials: 'same-origin',
+//     method: 'POST',
+//     headers: { 'Authorization': 'Bearer ' + id_token },
+//   };
+//   console.log("user added");
+//   const response = await fetch('/api/user?id=' + id_token, fetchOptions);
+// }
 
 
 async function addUnit() {

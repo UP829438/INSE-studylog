@@ -2,10 +2,9 @@ CREATE DATABASE IF NOT EXISTS studylog; -- create the Database to store all the 
 USE studylog; -- select the new Database
 CREATE TABLE User ( -- create the table for storing Users
      ID INT NOT NULL AUTO_INCREMENT,
-     googleCode VARCHAR(50) NOT NULL, -- For now this is a complete guess
+     googleCode CHAR(50) NOT NULL UNIQUE, --This is unique but it is 50 char long so it would be a waste of space to use this as the ID
      PRIMARY KEY (id)
 );
-/*If we add password with hashing etc. then it will be stored in the users table*/
 
 CREATE TABLE IF NOT EXISTS Unit ( -- create the table for storing Units
       ID INT NOT NULL AUTO_INCREMENT,

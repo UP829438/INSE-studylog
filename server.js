@@ -4,22 +4,8 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql2/promise');
 const studylog = require('./sql-queries.js');
-
 const GoogleAuth = require('simple-google-openid');
 
-let testData =
-{
-  "units": [
-    {
-      "unitName": "INSE",
-      "hours": 12,
-      "assignments": {
-        "name": "studyLog",
-        "date": "12/12/12"
-      }
-    }
-  ]
-};
 
 // you can put your client ID here
 app.use(GoogleAuth('746020260242-u21lib7b97qo83m3j6joi0gi81re3t7d.apps.googleusercontent.com'));
@@ -33,22 +19,17 @@ app.listen(PORT, () => {
   console.log(`server up listening on port ${PORT}!`);
 });
 
-app.get('/api/hello', (req, res) => {
+app.get('/api/hello', async (req, res) => {
   res.send('Hello ' + (req.user.displayName || 'user without a name') + '!');
-  console.log('successful authenticated request by ' + req.user.emails[0].value);
+  console.log('Successful authenticated request by %s(%s)',req.user.id,req.user.emails[0].value);
+  //Check if existing user and add if not
+  await studylog.checkUser(req.user.id);
 });
 
 app.post('/api/add', async (req, res) => {
   const userId = req.user.id;
   const unitName = req.query.unitname;
-  console.log(userId);
-  console.log(unitName);
+  //console.log(userId);
+  //console.log(unitName);
   await studylog.addUnit(unitName, userId);
-});
-
-
-app.post('/api/user', async (req, res) => {
-  const userId = req.user.id;
-  console.log(userId);
-  await studylog.addUser(userId);
 });
