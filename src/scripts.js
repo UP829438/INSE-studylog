@@ -12,12 +12,16 @@ function onSignIn(googleUser) {
   console.log('Logged in as:' + profile.getName());
   callServer();
   addUser();
+  buttonToggle();
 }
 
 function signOut() {
   let auth2 = gapi.auth2.getAuthInstance();
+  let signOut = document.getElementById('signout');
   auth2.signOut().then(function () {
-    console.log("Signed out.");
+    window.main.innerHTML =
+    '<div id="sessionover"><h1> Session over. </h1></div>'
+    signOut.classList.toggle('none');
   });
 }
 
@@ -121,3 +125,17 @@ function initGraph() {
 window.addEventListener('resize', resetCanvas);
 setCanvasSize(canvas);
 initGraph();
+
+
+ //  ____                  _              _____                 _   _
+ // |  _ \ ___  __ _ _   _| | __ _ _ __  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+ // | |_) / _ \/ _` | | | | |/ _` | '__| | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+ // |  _ <  __/ (_| | |_| | | (_| | |    |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+ // |_| \_\___|\__, |\__,_|_|\__,_|_|    |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+ //            |___/
+
+ function buttonToggle() {
+   let signIn = document.getElementById('signin');
+   console.log(signOut);
+   signIn.classList.toggle('none');
+ };
