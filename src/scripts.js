@@ -68,5 +68,5 @@ async function addUnit() {
     headers: { 'Authorization': 'Bearer ' + id_token },
   };
   addConfirm.textContent = "Added to SQL server";
-  const response = await fetch('/api/add?unitname=' + unit_name, fetchOptions);
+  const response = await fetch('/api/addunit?unitname=' + unit_name, fetchOptions);
 }

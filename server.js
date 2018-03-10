@@ -20,13 +20,13 @@ app.listen(PORT, () => {
 });
 
 app.get('/api/hello', async (req, res) => {
-  res.send('Hello ' + (req.user.displayName || 'user without a name') + '!');
-  console.log('Successful authenticated request by %s(%s)',req.user.id,req.user.emails[0].value);
-  //Check if existing user and add if not
+  res.send('Hello ' + (req.user.displayName || 'user without a name'));
+  console.log('\x1b[36mSuccessful Authentication request by %s(%s)\x1b[0m',req.user.id,req.user.emails[0].value);
+  //Check if existing user and add to database if not
   await studylog.checkUser(req.user.id);
 });
 
-app.post('/api/add', async (req, res) => {
+app.post('/api/addunit', async (req, res) => {
   const userId = req.user.id;
   const unitName = req.query.unitname;
   //console.log(userId);
