@@ -67,9 +67,11 @@ async function addUnit(unitName,googleIdToken) {
     'INSERT INTO Unit (userID,colour,name) VALUES ((SELECT ID FROM User WHERE googleToken = ?),?,?)',
     [googleIdToken,"none",unitName]
   );
-  if (Query){ //If Query was successfull (if is was not then error has already been printed to console)
+  if (Query){ //If Query was successfull (if not then error has already been printed to console)
     console.log('\x1b[33mUser: %s Added a New Unit (%s)\x1b[0m', googleIdToken,unitName);
+    return true; //return true so that client can know Unit was added successfully
   }
+  else {return false;} //return false so client can know Unit wasn't added
 }
 
 //async function addScheduledDate(various){}

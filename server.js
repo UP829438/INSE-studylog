@@ -7,16 +7,16 @@ const studylog = require('./sql-queries.js');
 const GoogleAuth = require('simple-google-openid');
 
 
-// you can put your client ID here
+// GoogleAuth client ID
 app.use(GoogleAuth('746020260242-u21lib7b97qo83m3j6joi0gi81re3t7d.apps.googleusercontent.com'));
 
-// this will serve the HTML file shown below
+// Use express to serve files (webserver)
 app.use('/', express.static('src'));
 
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`server up listening on port ${PORT}!`);
+  console.log('Server started, Listening on port ${PORT}');
 });
 
 app.get('/api/hello', async (req, res) => {
@@ -27,9 +27,9 @@ app.get('/api/hello', async (req, res) => {
 });
 
 app.post('/api/addunit', async (req, res) => {
-  const userId = req.user.id;
-  const unitName = req.query.unitname;
-  //console.log(userId);
-  //console.log(unitName);
-  await studylog.addUnit(unitName, userId);
+  const userId = req.user.id; //GoogleAuth ID
+  const unitName = req.query.unitname; //Name of new unit
+  //Colour of unit TBC
+  const addStatus = await studylog.addUnit(unitName, userId); //Add the Unit to the database
+  res.send(addStatus); //return to the client whether the Unit was added or not
 });
