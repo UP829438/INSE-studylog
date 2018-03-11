@@ -1,0 +1,97 @@
+body {
+  background-color: #6369D1;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#navbar {
+  background-color: #324851;
+  display: grid;
+  width: 100%;
+  height: 4em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+  "head head head head"
+}
+
+#navbar > #signin {
+  grid-area: head;
+  grid-column: 4;
+  margin: auto;
+}
+
+
+#navbar > #logo {
+  grid-area: head;
+  height: inherit;
+  margin: auto;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+#navbar > #signout {
+  grid-area: head;
+  grid-column: 4;
+  margin: auto;
+  color: white;
+}
+
+#sessionover {
+  display: block;
+  text-align: center;
+  padding-top: 5em;
+}
+
+#sessionover h1 {
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.toolbar {
+  background-color: #324851;
+  display: grid;
+  width: 100%;
+  height: 2.5em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+  "head head head head"
+}
+
+.toolbar > button {
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  color: white;
+}
+
+.toolar > button:hover {
+  background-color: black;
+}
+
+.addunit {
+  display: none;
+  background-color: #FF8D3F;
+  width: 10em;
+}
+
+
+#canvasArea {
+  padding: 2em 0 0 2em;
+}
+
+canvas {
+  border-style: solid;
+  border-color: black;
+}
+
+.show {
+  display: block;
+}
+
+.none {
+  display: none;
+}

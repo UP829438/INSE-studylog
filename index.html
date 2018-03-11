@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="746020260242-u21lib7b97qo83m3j6joi0gi81re3t7d.apps.googleusercontent.com">
+    <title>Home Page</title>
+</head>
+
+<body>
+  <section id="navbar">
+  <h1 id="logo">StudentPlan</h1>
+  <div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  <a id="signout" href="#" onclick="signOut();">Sign out</a>
+  </section>
+  <main id="main">
+  <section class="toolbar">
+      <button onclick="toggleAdd()" type="button" name="button">Add Unit</button>
+      <button type="button" name="button">Edit Unit</button>
+  </section>
+  <div class="addunit">
+    <p>Unit Name:</p>
+    <input id="addvalue" type="text" name="unit_name" value="">
+    <p>Colour:</p>
+    <input id="addcolour" type="color" name="color_name" value="000000">
+    <input id="addsubmit" type="submit" value="Submit" onclick="addUnit()">
+    <p id="addconfirm"></p>
+  </div>
+  </main>
+</body>
+
+
+<script src="scripts.js"></script>
