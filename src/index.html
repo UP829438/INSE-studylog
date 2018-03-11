@@ -18,14 +18,18 @@
   <div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   <a id="signout" href="#" onclick="signOut();">Sign out</a>
   </section>
-  <div>
-    <p>Add Unit</p>
-    <input id="addUnit" type="text" name="unit_name" value="">
-    <input type="submit" value="Submit" onclick="addUnit()">
-    <p id="UnitConfirm"></p>
-  </div>
-  <div id="canvasArea">
-    <canvas id="canvas" width="500" height="500"></canvas>
+  <main id="main">
+  <section class="toolbar">
+      <button onclick="toggleAdd()" type="button" name="button">Add Unit</button>
+      <button type="button" name="button">Edit Unit</button>
+  </section>
+  <div class="addunit">
+    <p>Unit Name:</p>
+    <input id="addvalue" type="text" name="unit_name" value="">
+    <p>Colour:</p>
+    <input id="addcolour" type="color" name="color_name" value="000000">
+    <input id="addsubmit" type="submit" value="Submit" onclick="addUnit()">
+    <p id="addconfirm"></p>
   </div>
   </main>
 </body>

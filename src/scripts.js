@@ -11,6 +11,7 @@ function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
   callServer();
+  buttonToggle();
   //addUser(); Moved this serverside
 }
 
@@ -71,7 +72,7 @@ async function addUnit() {
     }
     else{ //Unit was not added successfully
       alert('Could not add Unit!');
-    }    
+    }
   })
   .catch(function(error) {
     console.log('Fetch problem: \n', error);
@@ -139,6 +140,11 @@ initGraph();
 
  function buttonToggle() {
    let signIn = document.getElementById('signin');
-   console.log(signOut);
    signIn.classList.toggle('none');
  };
+
+
+  function toggleAdd() {
+    let content = document.querySelector(".addunit");
+    content.classList.toggle('show');
+  };
