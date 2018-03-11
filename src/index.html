@@ -18,12 +18,11 @@
   <div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   <a id="signout" href="#" onclick="signOut();">Sign out</a>
   </section>
-  <main id="main">
-  <div id="addunit">
+  <div>
     <p>Add Unit</p>
-    <input id="addvalue" type="text" name="unit_name" value="">
-    <input id="addsubmit" type="submit" value="Submit" onclick="initGraph()">
-    <p id="addconfirm"></p>
+    <input id="addUnit" type="text" name="unit_name" value="">
+    <input type="submit" value="Submit" onclick="addUnit()">
+    <p id="UnitConfirm"></p>
   </div>
   <div id="canvasArea">
     <canvas id="canvas" width="500" height="500"></canvas>
