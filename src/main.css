@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: #6369D1;
+  background-color: #20678c;
 }
 
 * {
@@ -16,6 +16,7 @@ body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
+
 }
 
 #navbar {
@@ -37,12 +38,18 @@ body {
 
 #navbar > #logo {
   grid-area: head;
+  border-bottom: 1px solid black;
+  ;
 }
 
 #navbar > #signout {
   grid-area: head;
   grid-column: 4;
   color: white;
+}
+
+#navbar > button {
+  border: none;
 }
 
 main {
@@ -90,7 +97,7 @@ main {
 .addunit {
   grid-area: area;
   display: none;
-  background-color: #FF8D3F;
+  background-color: #4e84a0;
 }
 
 
