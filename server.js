@@ -26,6 +26,12 @@ app.get('/api/hello', async (req, res) => {
   await studylog.checkUser(req.user.id);
 });
 
+app.get('/api/unit_list', async (req, res) => {
+  const userId = req.user.id;
+  const units = await studylog.listUnits(userId);
+  res.send(units);
+});
+
 app.post('/api/addunit', async (req, res) => {
   const userId = req.user.id; //GoogleAuth ID
   const unitName = req.query.unitname; //Name of new unit

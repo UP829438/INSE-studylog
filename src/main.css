@@ -33,7 +33,6 @@ body {
   grid-area: head;
   grid-column: 4;
   margin: auto;
-  display: none;
 }
 
 #navbar > #logo {
@@ -50,6 +49,10 @@ body {
 
 #navbar > button {
   border: none;
+}
+
+#unittable > li {
+  outline: 1px solid black;
 }
 
 main {

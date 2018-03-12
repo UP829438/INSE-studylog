@@ -55,6 +55,13 @@ async function checkUser(googleIdToken) { //Checks if a user is in the DB and if
 
 }
 
+async function listUnits(userid) {
+  const userQuery = await mysqlSelect('SELECT ID FROM User WHERE googleToken = ?;', userid); //gets correct user for use on Unit table
+  console.log(userQuery[0].ID);
+  const unitQuery = await mysqlSelect('SELECT name FROM Unit WHERE userID = ?;', userQuery[0].ID); // returns array of unit names
+  return unitQuery;
+}
+
 async function addUser(userid) {
   const Query = await mysqlInsert('INSERT INTO User (googleToken) VALUES (?) ;', userid)
   if (Query){ //If Query was successfull (if is was not then error has already been printed to console)
@@ -103,5 +110,6 @@ async function addUnit(unitName,unitColour,googleIdToken) {
 module.exports = {
   addUnit: addUnit,
   addUser: addUser,
-  checkUser: checkUser
+  checkUser: checkUser,
+  listUnits: listUnits
 }
