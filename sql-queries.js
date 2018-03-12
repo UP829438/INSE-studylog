@@ -41,7 +41,7 @@ async function mysqlInsert(queryStr,queryVars){ //Runs MySQL Insert Queries and 
   catch (error){
     console.log("\x1b[31mSQL Failure:\n\x1b[37m%s\x1b[0m",error); //catch SQL errors and print to console in colour
     return false; //return false as there was an SQL error
-  } 
+  }
 }
 
 async function checkUser(googleIdToken) { //Checks if a user is in the DB and if not adds them
@@ -52,7 +52,7 @@ async function checkUser(googleIdToken) { //Checks if a user is in the DB and if
     }
     else {console.log('\x1b[33mUser (%s) Already exists.\x1b[0m',googleIdToken);}
   }
-  
+
 }
 
 async function addUser(userid) {
@@ -62,13 +62,14 @@ async function addUser(userid) {
   }
 }
 
-async function addUnit(unitName,googleIdToken) {
+async function addUnit(unitName,unitColour,googleIdToken) {
+  unitColour = '#' + unitColour;
   const Query = await mysqlInsert(
     'INSERT INTO Unit (userID,colour,name) VALUES ((SELECT ID FROM User WHERE googleToken = ?),?,?)',
-    [googleIdToken,"none",unitName]
+    [googleIdToken,unitColour,unitName]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mUser: %s Added a New Unit (%s)\x1b[0m', googleIdToken,unitName);
+    console.log('\x1b[33mUser: %s Added a New Unit (%s,%s)\x1b[0m', googleIdToken,unitName, unitColour);
     return true; //return true so that client can know Unit was added successfully
   }
   else {return false;} //return false so client can know Unit wasn't added

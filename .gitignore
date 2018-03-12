@@ -1,3 +1,4 @@
 node_modules
 prepros-6.config
 package-lock.json
+.DS_Store
