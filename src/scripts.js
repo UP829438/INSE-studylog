@@ -88,12 +88,12 @@ const testData = {
       {
         unitName: "one",
         unitColour: "#4286f4",
-        unitHours: 12
+        unitHours:6
       },
       {
         unitName: "two",
         unitColour: "#dc37f2",
-        unitHours: 6
+        unitHours: 12
       },
       {
         unitName: "three",
@@ -103,7 +103,7 @@ const testData = {
       {
         unitName: "four",
         unitColour: "#7286f4",
-        unitHours: 2
+        unitHours: 1
       }
     ]
 }
@@ -158,6 +158,18 @@ function drawBox(c, x, y, colour, numberOfUnits) {
   }
 }
 
+function drawText(c, x, y, colour, text, numberOfElemets) {
+  let textSize = Math.floor(canvas.width*(0.2/numberOfElemets));
+  c.save();
+  c.textAlign="center";
+  c.scale(-1, 1);
+  c.translate(-x, y);
+  c.rotate(-Math.PI);
+  c.font = `${textSize}px Arial`;
+  c.fillText(text,0,0);
+  c.restore();
+}
+
 function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   function getHeight(canvasHeight, max, hours) {
     return ((canvasHeight-(canvasHeight*0.15))*(hours/max))+(canvasHeight*0.1)
@@ -174,6 +186,7 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
             let unit = data.units[i - 1];
             let x = startx+(xdif*(i));
             drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.unitHours), unit.unitColour, numberOfUnits)
+            drawText(c, x, canvas.height*0.025, unit.unitColour, unit.unitName, numberOfUnits)
           }
           drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
         }
@@ -181,6 +194,9 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
         let ydif = (endCoord - starty)/10;
         for (let i = 0; i < 10; i++) {
           drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
+          if ((i+1)%5 == 0) {
+            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6)
+          }
         }
       }
       break;
@@ -197,6 +213,7 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
             let x = startx+(xdif*(i));
             let y = getHeight(canvas.height, max, week.unitHours);
             drawBox(c, x, y, week.unitColour, numberOfWeeks)
+            drawText(c, x, canvas.height*0.025, week.unitColour, week.unitName, numberOfWeeks)
             coords.push({x: x, y: y});
           }
           for (let i = 0; i < coords.length - 1; i++) {
@@ -209,8 +226,12 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
         }
       } else {
         let ydif = (endCoord - starty)/10;
+        let max = getMaxHours(data.units);
         for (let i = 0; i < 10; i++) {
           drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
+          if ((i+1)%5 == 0) {
+            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6)
+          }
         }
       }
       break
