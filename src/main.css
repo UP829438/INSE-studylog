@@ -29,7 +29,10 @@ body {
 }
 
 #navbar > #signin {
-  grid-area: sign2;
+  grid-area: head;
+  grid-column: 4;
+  margin: auto;
+  display: none;
 }
 
 #navbar > #logo {
@@ -37,7 +40,8 @@ body {
 }
 
 #navbar > #signout {
-  grid-area: sign;
+  grid-area: head;
+  grid-column: 4;
   color: white;
 }
 
