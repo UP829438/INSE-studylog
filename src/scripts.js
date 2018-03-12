@@ -82,6 +82,31 @@ async function addUnit() {
 //Canvas Functions
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
+const testData = {
+    userName: "a",
+    units: [
+      {
+        unitName: "one",
+        unitColour: "#4286f4",
+        unitHours: 12
+      },
+      {
+        unitName: "two",
+        unitColour: "#dc37f2",
+        unitHours: 6
+      },
+      {
+        unitName: "three",
+        unitColour: "#d61326",
+        unitHours: 3
+      },
+      {
+        unitName: "four",
+        unitColour: "#7286f4",
+        unitHours: 2
+      }
+    ]
+}
 
 function setCanvasSize(canvas) {
   canvas.width = (window.innerWidth/3)*2;
@@ -90,7 +115,7 @@ function setCanvasSize(canvas) {
 
 function resetCanvas() {
   setCanvasSize(canvas);
-  initGraph();
+  drawGraph();
 }
 
 function drawLine(c, fX, fY, tX, tY, colour) {
@@ -103,32 +128,70 @@ function drawLine(c, fX, fY, tX, tY, colour) {
   c.stroke();
 }
 
-function drawNotches(c, horizontal, startx, starty, endCoord, notches) {
+function drawBar(c, fX, fY, sX, sY, colour, numberOfUnits) {
+  let barWidth = (canvas.width/2)/(numberOfUnits*2.5)
+  c.beginPath();
+  c.lineWidth = 2;
+  c.strokeStyle = colour;
+  c.fillStyle = colour;
+  c.moveTo(fX-barWidth,fY);
+  c.lineTo(fX-barWidth,sY);
+  c.lineTo(sX+barWidth,sY);
+  c.lineTo(sX+barWidth,fY);
+  c.stroke();
+}
+
+function populateGraph(c, horizontal, startx, starty, endCoord, data) {
+  let numberOfUnits = data.units.length;
+  let max = getMaxHours(data.units);
+  function getHeight(canvasHeight, max, hours) {
+    return ((canvasHeight-(canvasHeight*0.15))*(hours/max))+(canvasHeight*0.1)
+  }
+
   if (horizontal) {
-    let xdif = (endCoord - startx)/notches;
-    for (let i = startx + xdif; i < endCoord; i+=xdif) {
-      drawLine(c, i, starty - 5, i, starty +5, "black");
+    let xdif = (endCoord - startx)/(numberOfUnits+1);
+    for (let i = 0; i < numberOfUnits+1; i++) {
+      if (i <= numberOfUnits && (i) != 0) {
+        let unit = data.units[i - 1];
+        let x = startx+(xdif*(i));
+        drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.unitHours), unit.unitColour, numberOfUnits)
+      }
+      drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
     }
   } else {
-    let ydif = (endCoord - starty)/notches;
-    for (let i = starty + ydif; i < endCoord; i+=ydif) {
-      drawLine(c, startx - 5, i, startx + 5, i, "black");
+    let ydif = (endCoord - starty)/10;
+    for (let i = 0; i < 10; i++) {
+      drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
     }
   }
 }
 
-function initGraph() {
-  let width = canvas.width;
-  let height = canvas.height;
-  drawLine(c, width/10, height/20, width/10, height-(height/20), "black");
-  drawLine(c, width/20, height-(height/10), width-(width/20), height-(height/10), "black")
-  drawNotches(c, true, width/10, height-(height/10), width-(width/20), 10);
-  drawNotches(c, false, width/10, height/20, height-(height/10), 10);
+function getMaxHours(units) {
+  let max = 0;
+  for (let i = 0; i < units.length; i++) {
+    if (units[i].unitHours >  max) {
+      max = units[i].unitHours;
+    }
+  }
+
+  return max;
 }
 
+function drawGraph() {
+  //let userData = getUserData(getUserID());
+  let width = canvas.width;
+  console.log(width);
+  let height = canvas.height;
+  console.log(height);
+
+  populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), testData);
+  populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), testData);
+  drawLine(c, width*0.1, height*0.05, width*0.1, height-(height*0.05), "black");
+  drawLine(c, width*0.05, height*0.1, width-(width*0.05), height*0.1, "black")
+}
+
+window.addEventListener('load', resetCanvas);
 window.addEventListener('resize', resetCanvas);
-setCanvasSize(canvas);
-initGraph();
 
 
  //  ____                  _              _____                 _   _
