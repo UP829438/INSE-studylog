@@ -29,7 +29,8 @@ app.get('/api/hello', async (req, res) => {
 app.post('/api/addunit', async (req, res) => {
   const userId = req.user.id; //GoogleAuth ID
   const unitName = req.query.unitname; //Name of new unit
+  const unitColour = req.query.unitcolour; // colour to be associated
   //Colour of unit TBC
-  const addStatus = await studylog.addUnit(unitName, userId); //Add the Unit to the database
+  const addStatus = await studylog.addUnit(unitName, unitColour, userId); //Add the Unit to the database
   res.send(addStatus); //return to the client whether the Unit was added or not
 });

@@ -52,14 +52,19 @@ async function callServer() {
 
 async function addUnit() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-  let unit_name = document.getElementById('addUnit').value;
+  let unit_name = document.getElementById('addvalue').value;
   let addConfirm = document.getElementById('UnitConfirm');
+  let unitColour = document.getElementById('addcolour').value;
+  unitColour = unitColour.slice( 1 );
+  console.log(unitColour);
+  let url = '/api/addunit?unitname=' + unit_name + '&unitcolour=' + unitColour;
+  console.log(url);
   const fetchOptions = {
     credentials: 'same-origin',
     method: 'POST',
     headers: { 'Authorization': 'Bearer ' + id_token },
   };
-  await fetch('/api/addunit?unitname=' + unit_name, fetchOptions).then(function(response) {
+  await fetch(url, fetchOptions).then(function(response) {
     if (!response.ok) { // This will run if the server api didn't respond or had a problem like 404 etc.
       throw Error(response.statusText);
     }
