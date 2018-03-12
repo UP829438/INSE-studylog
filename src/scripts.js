@@ -142,28 +142,80 @@ function drawBar(c, fX, fY, sX, sY, colour, numberOfUnits) {
   c.stroke();
 }
 
-function populateGraph(c, horizontal, startx, starty, endCoord, data) {
-  let numberOfUnits = data.units.length;
-  let max = getMaxHours(data.units);
+function drawBox(c, x, y, colour, numberOfUnits) {
+  for (let i = 1; i < 9; i+=7) {
+    let barWidth = (canvas.width/2)/(numberOfUnits*(8*i))
+    c.beginPath();
+    c.lineWidth = 2;
+    c.strokeStyle = colour;
+    c.fillStyle = colour;
+    c.moveTo(x-barWidth,y-barWidth);
+    c.lineTo(x-barWidth,y+barWidth);
+    c.lineTo(x+barWidth,y+barWidth);
+    c.lineTo(x+barWidth,y-barWidth);
+    c.lineTo(x-barWidth,y-barWidth);
+    c.stroke();
+  }
+}
+
+function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   function getHeight(canvasHeight, max, hours) {
     return ((canvasHeight-(canvasHeight*0.15))*(hours/max))+(canvasHeight*0.1)
   }
 
-  if (horizontal) {
-    let xdif = (endCoord - startx)/(numberOfUnits+1);
-    for (let i = 0; i < numberOfUnits+1; i++) {
-      if (i <= numberOfUnits && (i) != 0) {
-        let unit = data.units[i - 1];
-        let x = startx+(xdif*(i));
-        drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.unitHours), unit.unitColour, numberOfUnits)
+  switch (type) {
+    case 0: // Bar Chart for overview of all units
+      let numberOfUnits = data.units.length;
+      let max = getMaxHours(data.units);
+      if (horizontal) {
+        let xdif = (endCoord - startx)/(numberOfUnits+1);
+        for (let i = 0; i < numberOfUnits+1; i++) {
+          if (i <= numberOfUnits && (i) != 0) {
+            let unit = data.units[i - 1];
+            let x = startx+(xdif*(i));
+            drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.unitHours), unit.unitColour, numberOfUnits)
+          }
+          drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
+        }
+      } else {
+        let ydif = (endCoord - starty)/10;
+        for (let i = 0; i < 10; i++) {
+          drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
+        }
       }
-      drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
-    }
-  } else {
-    let ydif = (endCoord - starty)/10;
-    for (let i = 0; i < 10; i++) {
-      drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
-    }
+      break;
+
+    case 1: // Scatter Graph for breakdown of single unit
+      if (horizontal) {
+        let numberOfWeeks = data.units.length;
+        let max = getMaxHours(data.units);
+        let coords = [];
+        let xdif = (endCoord - startx)/(numberOfWeeks+1);
+        for (let i = 0; i < numberOfWeeks+1; i++) {
+          if (i <= numberOfWeeks && (i) != 0) {
+            let week = data.units[i - 1];
+            let x = startx+(xdif*(i));
+            let y = getHeight(canvas.height, max, week.unitHours);
+            drawBox(c, x, y, week.unitColour, numberOfWeeks)
+            coords.push({x: x, y: y});
+          }
+          for (let i = 0; i < coords.length - 1; i++) {
+            c.save();
+            c.globalCompositeOperation = "destination-over";
+            drawLine(c, coords[i].x, coords[i].y, coords[i+1].x, coords[i+1].y, "black");
+            c.restore();
+          }
+          drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
+        }
+      } else {
+        let ydif = (endCoord - starty)/10;
+        for (let i = 0; i < 10; i++) {
+          drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
+        }
+      }
+      break
+    default:
+
   }
 }
 
@@ -183,8 +235,8 @@ function drawGraph() {
   let width = canvas.width;
   let height = canvas.height;
 
-  populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), testData);
-  populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), testData);
+  populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), testData, 1);
+  populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), testData, 1);
   drawLine(c, width*0.1, height*0.05, width*0.1, height-(height*0.05), "black");
   drawLine(c, width*0.05, height*0.1, width-(width*0.05), height*0.1, "black")
 }
