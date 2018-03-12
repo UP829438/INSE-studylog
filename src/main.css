@@ -3,7 +3,8 @@
   "head head head head"
   "add edit sign sign2"
   "area area area area";
-  --nav-rows: repeat(3, 1fr);
+  --nav-col: repeat(4, 1fr);
+  --nav-rows: repeat(2, 1fr);
 }
 
 body {
@@ -22,8 +23,8 @@ body {
   display: grid;
   width: 100%;
   height: auto;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(var(--nav-rows));
+  grid-template-columns: repeat(var(--nav-rows));
+  grid-template-rows: var(--nav-rows);
   grid-template-areas: var(--nav-area);
 }
 
@@ -42,7 +43,9 @@ body {
 
 main {
   display: block;
-  padding-top: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  height: 100%;
 }
 
 
@@ -81,7 +84,7 @@ main {
 }
 
 .addunit {
-  grid-area: button;
+  grid-area: area;
   display: none;
   background-color: #FF8D3F;
 }

@@ -109,8 +109,9 @@ const testData = {
 }
 
 function setCanvasSize(canvas) {
-  canvas.width = (window.innerWidth/3)*2;
-  canvas.height = (window.innerHeight/3)*2;
+  let main = (window.innerHeight*0.6);
+  canvas.width = (window.innerWidth*0.6);
+  canvas.height = (main);
 }
 
 function resetCanvas() {
@@ -180,9 +181,7 @@ function getMaxHours(units) {
 function drawGraph() {
   //let userData = getUserData(getUserID());
   let width = canvas.width;
-  console.log(width);
   let height = canvas.height;
-  console.log(height);
 
   populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), testData);
   populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), testData);
