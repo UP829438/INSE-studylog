@@ -9,6 +9,8 @@
 
 body {
   background-color: #20678c;
+  background-image: url("../src/images/study.jpg");
+  background-size:cover;
 }
 
 * {
@@ -20,7 +22,7 @@ body {
 }
 
 #navbar {
-  background-color: #324851;
+  background-color: #23667F;
   display: grid;
   width: 100%;
   height: auto;
@@ -83,7 +85,7 @@ main {
 }
 
 .toolbar {
-  background-color: #324851;
+  background-color: #23667F;
 }
 
 .toolbar > button {
