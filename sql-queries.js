@@ -28,7 +28,10 @@ async function mysqlSelect(queryStr,queryVars){ //Runs MySQL Select Queries and 
   let [results, fields] = await sqlConnection.execute(newQuery) //run query
   return results; //return results
   }
-  catch (error){console.log("\x1b[31mSQL Failure:\n\x1b[37m%s\x1b[0m",error);} //catch SQL errors and print to console in colour
+  catch (error){
+    console.log("\x1b[31mSQL Failure:\n\x1b[37m%s\x1b[0m",error);//catch SQL errors and print to console in colour
+    return null; //return null as an SQL error was encountered trying to select
+  }
 }
 
 async function mysqlInsert(queryStr,queryVars){ //Runs MySQL Insert Queries and returns whether the query was successful
@@ -52,7 +55,6 @@ async function checkUser(googleIdToken) { //Checks if a user is in the DB and if
     }
     else {console.log('\x1b[33mUser (%s) Already exists.\x1b[0m',googleIdToken);}
   }
-
 }
 
 async function addUser(googleIdToken) {
@@ -75,29 +77,65 @@ async function addUnit(unitName,unitColour,googleIdToken) {
   else {return false;} //return false so client can know Unit wasn't added
 }
 
-//async function addScheduledDate(various){}
-
-//async function addStudyHours(various){}
-
-//async function addGrade(various){}
-
-async function listUnits(googleIdToken) {
-  return await mysqlSelect('SELECT name FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken); // returns array of unit names
+async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
+  const Query = await mysqlInsert(
+    'INSERT INTO ScheduledDate (unitID,title,description,time) VALUES (?,?,?,?)',
+    [unitID,dateTitle,dateDesc,dateTime]
+  );
+  if (Query){ //If Query was successfull (if not then error has already been printed to console)
+    console.log('\x1b[33mUser: %s Added a New Scheduled Date (%s,%s)\x1b[0m', dateTitle,dateTime);
+    return true; //return true so that client can know Date was added successfully
+  }
+  else {return false;} //return false so client can know Date wasn't added
 }
 
-//async function listScheduledDates(various){}
+async function addStudyHours(unitID,studyHrs,studyHrsDay){
+  const Query = await mysqlInsert(
+    'INSERT INTO StudyHours (unitID,hours,date) VALUES (?,?,?)',
+    [unitID,studyHrs,studyHrsDay]
+  );
+  if (Query){ //If Query was successfull (if not then error has already been printed to console)
+    console.log('\x1b[33mUser: %s Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
+    return true; //return true so that client can know Study Hours were added successfully
+  }
+  else {return false;} //return false so client can know Study Hours weren't added
+}
 
-//async function listStudyHours(various){}
+async function addGrade(unitID,gradeTitle,gradeScore,gradeTime){
+  const Query = await mysqlInsert(
+    'INSERT INTO Grade (unitID,title,score,time) VALUES (?,?,?,?)',
+    [unitID,studyHrs,studyHrsDay]
+  );
+  if (Query){ //If Query was successfull (if not then error has already been printed to console)
+    console.log('\x1b[33mUser: %s Added a New Grade (%s,%s)\x1b[0m', gradeTitle,gradeScore);
+    return true; //return true so that client can know Grade was added successfully
+  }
+  else {return false;} //return false so client can know Grade wasn't added
+}
 
-//async function listGrades(various){}
+async function getUnits(googleIdToken) { // returns array of all Unit Names for that User
+  return await mysqlSelect('SELECT ID,name FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken);
+}
 
-//async function getUnit(googleIdToken) {}
+async function getUnit(unitID){ // returns array of all details for that unit
+  return await mysqlSelect('SELECT colour,credits,name FROM Unit WHERE ID = ?;', unitID);
+}
 
-//async function getScheduledDates(various){}
+async function getScheduledDates(unitID) { // returns array of all Scheduled Dates in that Unit
+  return await mysqlSelect('SELECT ID,title,description,time FROM ScheduledDate WHERE unitID = ?;', unitID);
+}
 
-//async function getStudyHours(various){}
+async function getStudyHours(unitID) { // returns total overall study hours recorded for that Unit
+  return await mysqlSelect('SELECT SUM(hours) FROM StudyHours WHERE unitID = ?;', unitID);
+}
 
-//async function getGrades(various){}
+async function getStudyHourDetails(unitID) { // returns array of all details of study hours on that Unit
+  return await mysqlSelect('SELECT hours,date FROM StudyHours WHERE unitID = ?;', unitID);
+}
+
+async function getGrades(unitID){ // returns array of all Grades recorded on that unit
+  return await mysqlSelect('SELECT title,score,time FROM Grade WHERE unitID = ?;', unitID);
+}
 
 //async function editUnit(various){}
 
@@ -119,8 +157,17 @@ async function listUnits(googleIdToken) {
 
 
 module.exports = {
-  addUnit: addUnit,
-  addUser: addUser,
   checkUser: checkUser,
-  listUnits: listUnits
+  addUser: addUser,
+  addUnit: addUnit,
+  addScheduledDate: addScheduledDate,
+  addStudyHours: addStudyHours,
+  addGrade: addGrade,
+
+  getUnits: getUnits,
+  getUnit: getUnit,
+  getScheduledDates: getScheduledDates,
+  getStudyHours: getStudyHours,
+  getStudyHourDetails: getStudyHourDetails,
+  getGrades: getGrades,
 }
