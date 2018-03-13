@@ -55,17 +55,10 @@ async function checkUser(googleIdToken) { //Checks if a user is in the DB and if
 
 }
 
-async function listUnits(userid) {
-  const userQuery = await mysqlSelect('SELECT ID FROM User WHERE googleToken = ?;', userid); //gets correct user for use on Unit table
-  console.log(userQuery[0].ID);
-  const unitQuery = await mysqlSelect('SELECT name FROM Unit WHERE userID = ?;', userQuery[0].ID); // returns array of unit names
-  return unitQuery;
-}
-
-async function addUser(userid) {
-  const Query = await mysqlInsert('INSERT INTO User (googleToken) VALUES (?) ;', userid)
+async function addUser(googleIdToken) {
+  const Query = await mysqlInsert('INSERT INTO User (googleToken) VALUES (?) ;', googleIdToken)
   if (Query){ //If Query was successfull (if is was not then error has already been printed to console)
-    console.log('\x1b[33mAdded New User:\x1b[0m %s', userid);
+    console.log('\x1b[33mAdded New User:\x1b[0m %s', googleIdToken);
   }
 }
 
@@ -87,6 +80,24 @@ async function addUnit(unitName,unitColour,googleIdToken) {
 //async function addStudyHours(various){}
 
 //async function addGrade(various){}
+
+async function listUnits(googleIdToken) {
+  return await mysqlSelect('SELECT name FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken); // returns array of unit names
+}
+
+//async function listScheduledDates(various){}
+
+//async function listStudyHours(various){}
+
+//async function listGrades(various){}
+
+//async function getUnit(googleIdToken) {}
+
+//async function getScheduledDates(various){}
+
+//async function getStudyHours(various){}
+
+//async function getGrades(various){}
 
 //async function editUnit(various){}
 

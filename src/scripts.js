@@ -55,10 +55,8 @@ async function addUnit() {
   let unit_name = document.getElementById('addvalue').value;
   let addConfirm = document.getElementById('UnitConfirm');
   let unitColour = document.getElementById('addcolour').value;
-  unitColour = unitColour.slice( 1 );
-  console.log(unitColour);
+  unitColour = unitColour.slice(1);
   let url = '/api/addunit?unitname=' + unit_name + '&unitcolour=' + unitColour;
-  console.log(url);
   const fetchOptions = {
     credentials: 'same-origin',
     method: 'POST',
@@ -87,13 +85,12 @@ async function addUnit() {
 
 async function getUnits() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-
   const fetchOptions = {
     credentials: 'same-origin',
     method: 'GET',
     headers: { 'Authorization': 'Bearer ' + id_token },
   };
-  const response = await fetch('/api/unit_list', fetchOptions);
+  const response = await fetch('/api/getunits', fetchOptions);
   if (!response.ok) {
     console.log(response.status);
     return;

@@ -20,23 +20,41 @@ app.listen(PORT, () => {
 });
 
 app.get('/api/hello', async (req, res) => {
-  res.send('Hello ' + (req.user.displayName || 'user without a name'));
-  console.log('\x1b[36mSuccessful Authentication request by %s(%s)\x1b[0m',req.user.id,req.user.emails[0].value);
-  //Check if existing user and add to database if not
-  await studylog.checkUser(req.user.id);
+  try { //If user has no id (not signed in) error will be thrown
+    res.send('Hello ' + (req.user.displayName || 'user without a name'));
+    console.log('\x1b[36mSuccessful Authentication request by %s(%s)\x1b[0m',req.user.id,req.user.emails[0].value);
+    //Check if existing user and add to database if not
+    await studylog.checkUser(req.user.id);
+  }
+  catch (error) {
+    console.log("\x1b[31mAPI (Hello) Error: \x1b[37m%s\x1b[0m",error);
+    res.send("Server Error: Please log in again");
+  }
 });
 
-app.get('/api/unit_list', async (req, res) => {
-  const userId = req.user.id;
-  const units = await studylog.listUnits(userId);
-  res.send(units);
+app.get('/api/getunits', async (req, res) => {
+  try { //If user has no id (not signed in) error will be thrown
+    const userId = req.user.id;
+    const units = await studylog.listUnits(userId);
+    res.send(units);
+  }
+  catch (error) {
+    console.log("\x1b[31mAPI (ListUnits) Error: \x1b[37m%s\x1b[0m",error);
+    res.send("Server Error: Please log in again");
+  }
 });
 
 app.post('/api/addunit', async (req, res) => {
-  const userId = req.user.id; //GoogleAuth ID
-  const unitName = req.query.unitname; //Name of new unit
-  const unitColour = req.query.unitcolour; // colour to be associated
-  //Colour of unit TBC
-  const addStatus = await studylog.addUnit(unitName, unitColour, userId); //Add the Unit to the database
-  res.send(addStatus); //return to the client whether the Unit was added or not
+  try { //If user has no id (not signed in) error will be thrown
+    const userId = req.user.id; //GoogleAuth ID
+    const unitName = req.query.unitname; //Name of new unit
+    const unitColour = req.query.unitcolour; // colour to be associated
+    //Colour of unit TBC
+    const addStatus = await studylog.addUnit(unitName, unitColour, userId); //Add the Unit to the database
+    res.send(addStatus); //return to the client whether the Unit was added or not
+  }
+  catch (error) {
+    console.log("\x1b[31mAPI (AddUnit) Error: \x1b[37m%s\x1b[0m",error);
+    res.send("Server Error: Please log in again");
+  }  
 });
