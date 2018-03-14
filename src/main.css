@@ -9,8 +9,7 @@
 
 body {
   background-color: #20678c;
-  background-image: url("../src/images/study.jpg");
-  background-size:cover;
+
 }
 
 * {
@@ -22,7 +21,7 @@ body {
 }
 
 #navbar {
-  background-color: #23667F;
+  background-color:#6aaacc;
   display: grid;
   width: 100%;
   height: auto;
@@ -47,8 +46,6 @@ body {
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 22px;
   background-color: #F7DBA7;
-
-
 }
 
 #navbar > #signout {
@@ -92,14 +89,24 @@ main {
 
 #add {
   grid-area: add;
+  border: none;
+  background-image: url("../src/images/add-file.png");
+  background-position:left;
+  background-repeat:no-repeat;
+  background-size:35px;
 }
 
 #edit {
   grid-area: edit;
+  border: none;
+  background-image: url("../src/images/edit.png");
+  background-position:left;
+  background-repeat:no-repeat;
+  background-size:35px;
 }
 
 .toolbar {
-  background-color: #23667F;
+  background-color:#6aaacc;
 }
 
 .toolbar > button {
