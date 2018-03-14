@@ -83,7 +83,7 @@ async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
     [unitID,dateTitle,dateDesc,dateTime]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mUser: %s Added a New Scheduled Date (%s,%s)\x1b[0m', dateTitle,dateTime);
+    console.log('\x1b[33mA User Added Added a New Scheduled Date (%s,%s)\x1b[0m', dateTitle,dateTime);
     return true; //return true so that client can know Date was added successfully
   }
   else {return false;} //return false so client can know Date wasn't added
@@ -95,7 +95,7 @@ async function addStudyHours(unitID,studyHrs,studyHrsDay){
     [unitID,studyHrs,studyHrsDay]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mUser: %s Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
+    console.log('\x1b[33mA User Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
     return true; //return true so that client can know Study Hours were added successfully
   }
   else {return false;} //return false so client can know Study Hours weren't added
@@ -107,7 +107,7 @@ async function addGrade(unitID,gradeTitle,gradeScore,gradeTime){
     [unitID,studyHrs,studyHrsDay]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mUser: %s Added a New Grade (%s,%s)\x1b[0m', gradeTitle,gradeScore);
+    console.log('\x1b[33mA User Added a New Grade (%s,%s)\x1b[0m', gradeTitle,gradeScore);
     return true; //return true so that client can know Grade was added successfully
   }
   else {return false;} //return false so client can know Grade wasn't added
@@ -135,6 +135,24 @@ async function getStudyHourDetails(unitID) { // returns array of all details of 
 
 async function getGrades(unitID){ // returns array of all Grades recorded on that unit
   return await mysqlSelect('SELECT title,score,time FROM Grade WHERE unitID = ?;', unitID);
+}
+
+async function getGraphData(graphType,googleIdToken,dateFrom,unitID) { // returns array of data to be used for populating graphs
+  if (graphType.toLowerCase()=="bar") {
+      const data = await mysqlSelect(
+          'SELECT name,colour,SUM(hours) as hours FROM Unit INNER JOIN StudyHours on StudyHours.unitID = Unit.ID WHERE date > DATE_SUB(?, INTERVAL 1 DAY) AND userID = (SELECT ID FROM User WHERE googleToken = ?) GROUP BY name;',
+          [dateFrom,googleIdToken]);
+      return data;
+  }
+  else if (graphType.toLowerCase()=="graph") {
+      const data = await mysqlSelect(
+          'SELECT hours,date FROM StudyHours WHERE date > DATE_SUB(?, INTERVAL 1 DAY) AND unitID = ? GROUP BY date ASC;',
+          [dateFrom,unitID]);
+      return data;
+  }
+  else {
+      throw Error("No such graph type as %s",graphType);
+  }
 }
 
 //async function editUnit(various){}
@@ -170,4 +188,5 @@ module.exports = {
   getStudyHours: getStudyHours,
   getStudyHourDetails: getStudyHourDetails,
   getGrades: getGrades,
+  getGraphData: getGraphData,
 }

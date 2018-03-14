@@ -104,7 +104,7 @@ app.post('/api/addgrade', async (req, res) => {
 
 app.get('/api/getunit', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.user.unitid;
+    const unitID = req.query.unitid;
     const unit = await studylog.getUnit(unitID);
     res.send(unit);
   }
@@ -116,7 +116,7 @@ app.get('/api/getunit', async (req, res) => {
 
 app.get('/api/getscheduleddates', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.user.unitid;
+    const unitID = req.query.unitid;
     const dates = await studylog.getScheduledDates(unitID);
     res.send(dates);
   }
@@ -128,7 +128,7 @@ app.get('/api/getscheduleddates', async (req, res) => {
 
 app.get('/api/getstudyhours', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.user.unitid;
+    const unitID = req.query.unitid;
     const hoursTotal = await studylog.getStudyHours(unitID);
     res.send(hoursTotal);
   }
@@ -140,7 +140,7 @@ app.get('/api/getstudyhours', async (req, res) => {
 
 app.get('/api/getstudyhoursdetails', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.user.unitid;
+    const unitID = req.query.unitid;
     const studyHours = await studylog.getStudyHourDetails(unitID);
     res.send(studyHours);
   }
@@ -152,12 +152,38 @@ app.get('/api/getstudyhoursdetails', async (req, res) => {
 
 app.get('/api/getgrades', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.user.unitid;
+    const unitID = req.query.unitid;
     const grades = await studylog.getGrades(unitID);
     res.send(grades);
   }
   catch (error) {
     console.log("\x1b[31mAPI (GetGrades) Error: \x1b[37m%s\x1b[0m",error);
+    res.send("Server Error: Please log in again");
+  }
+});
+
+app.get('/api/getgraphdata', async (req, res) => {
+  try { //If user has no id (not signed in) error will be thrown
+    const unitID = req.query.unitid; //Id of the unit to get the study hours for
+    const dateFrom = req.query.date; //Study hours will be returned from days after this Date
+    const graphData = await studylog.getGraphData("graph",null,dateFrom,unitID);
+    res.send(graphData);
+  }
+  catch (error) {
+    console.log("\x1b[31mAPI (GetGraphData) Error: \x1b[37m%s\x1b[0m",error);
+    res.send("Server Error: Please log in again");
+  }
+});
+
+app.get('/api/getbarchartdata', async (req, res) => {
+  try { //If user has no id (not signed in) error will be thrown
+    const userId = req.user.id; //GoogleAuth ID
+    const dateFrom = req.query.date; //Study hour will be returned from days after this Date
+    const grades = await studylog.getGraphData("bar",userId,dateFrom,null);
+    res.send(grades);
+  }
+  catch (error) {
+    console.log("\x1b[31mAPI (GetBarchartData) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
   }
 });

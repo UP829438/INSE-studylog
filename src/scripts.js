@@ -163,6 +163,39 @@ async function getUnits() {
   console.log(userData);
 }
 
+async function getBarchartData(dateFrom) { //Gets the Json for the barchart, only needs the date (gets hours after and including this date)
+  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'GET',
+    headers: { 'Authorization': 'Bearer ' + id_token },
+  };
+  let url = '/api/getbarchartdata?date='+dateFrom;
+  const response = await fetch(url, fetchOptions);
+  console.log(response);
+  if (!response.ok) {
+    console.log(response.status);
+    return;
+  }
+  return await response.json();
+}
+
+async function getGraphData(unitID,dateFrom) { //Gets the Json for the graph, takes the unitID and the date (gets hours for each day after and including this date)
+  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'GET',
+    headers: { 'Authorization': 'Bearer ' + id_token },
+  };
+  let url = '/api/getgraphdata?unitid='+unitID+'&date='+dateFrom;
+  const response = await fetch(url, fetchOptions);
+  console.log(response);
+  if (!response.ok) {
+    console.log(response.status);
+    return;
+  }
+  return await response.json();
+}
 
  //   ____                            _____                 _   _
  //  / ___|__ _ _ ____   ____ _ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
