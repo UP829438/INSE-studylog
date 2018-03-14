@@ -14,6 +14,8 @@ function onSignIn(googleUser) {
   console.log('Logged in as:' + profile.getName());
   document.getElementById("add").disabled = false;
   document.getElementById("edit").disabled = false;
+  var x = document.getElementsByClassName("canvasContent");
+  x.classList.add("show");
   callServer();
   buttonToggle();
   getUnits();
