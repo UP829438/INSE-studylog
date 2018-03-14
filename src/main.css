@@ -185,6 +185,6 @@ canvas {
   display: block;
 }
 
-.none {
-  display: none;
+.canvasContent {
+  display :none;
 }

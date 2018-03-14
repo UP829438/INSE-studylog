@@ -16,6 +16,9 @@ function onSignIn(googleUser) {
   document.getElementById("edit").disabled = false;
   var x = document.getElementsByClassName("canvasContent");
   x.classList.add("show");
+// if the above line of code doesnt work
+// use this one
+// x.style.display = "block"  
   callServer();
   buttonToggle();
   getUnits();
