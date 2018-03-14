@@ -10,6 +10,8 @@
 function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
+  document.getElementById("add").disabled = false;
+  document.getElementById("edit").disabled = false;
   callServer();
   buttonToggle();
   //addUser(); Moved this serverside
@@ -23,6 +25,8 @@ function signOut() {
     '<div id="sessionover"><h1> Session over. </h1></div>'
     signOut.classList.toggle('none');
   });
+  document.getElementById("add").disabled = true;
+  document.getElementById("edit").disabled = true;
 }
 
 async function callServer() {
