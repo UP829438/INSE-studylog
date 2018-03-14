@@ -7,7 +7,7 @@
  //
 
 //GLOBAL VARIABLES
-let units;
+let unit;
 
 function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
@@ -108,16 +108,27 @@ async function getUnits() {
   if (data.length == 0) {
     return;
   }
-
+  testData = {
+    userID: "",
+    units: []}
+  testData.userID = data[0].ID;
+  console.log(data);
   data.forEach((i) => { //loops through adding a new element with the content of the SQL database
     const unitTemplate = document.getElementById('unit').content.cloneNode(true);
     let unitTitle = unitTemplate.querySelector('.unittitle');
     unitTitle.textContent = i.name; //Set the text to the unit name
     unitTitle.name = i.ID; //Set the name attribute to the unit ID
-    console.log(i.colour);
     unitTitle.style.color = i.colour; //sets colour of attribute to selected unit colour
     unitList.appendChild(unitTemplate);
+    testData.units.push( {
+      name: i.name,
+      unitID: i.ID,
+      colour: i.colour,
+      hours: 5
+    })
   });
+  resetCanvas();
+  console.log(testData);
 }
 
 //Canvas Functions
@@ -126,36 +137,39 @@ const c = canvas.getContext("2d");
 let graphChoice = 0;
 let currentWeek = "one";
 let weekName = ""
-const testData = {
-    userName: "a",
-    units: [
-      {
-        name: "one",
-        colour: "#4286f4",
-        hours:6
-      },
-      {
-        name: "two",
-        colour: "#dc37f2",
-        hours: 12
-      },
-      {
-        name: "three",
-        colour: "#d61326",
-        hours: 3
-      },
-      {
-        name: "four",
-        colour: "#7286f4",
-        hours: 1
-      },
-      {
-        name: "four",
-        colour: "#7286f4",
-        hours: 1
-      }
-    ]
-}
+let testData = {
+  userID: "",
+  units: []}
+// const testData = {
+//     userID: "a",
+//     units: [
+//       {
+//         name: "one",
+//         colour: "#4286f4",
+//         hours:6
+//       },
+//       {
+//         name: "two",
+//         colour: "#dc37f2",
+//         hours: 12
+//       },
+//       {
+//         name: "three",
+//         colour: "#d61326",
+//         hours: 3
+//       },
+//       {
+//         name: "four",
+//         colour: "#7286f4",
+//         hours: 1
+//       },
+//       {
+//         name: "four",
+//         colour: "#7286f4",
+//         hours: 1
+//       }
+//     ]
+// }
 const weekData = {
     weekName: "one",
     weeks: [
