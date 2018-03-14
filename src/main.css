@@ -51,7 +51,7 @@ body {
 }
 
 #navbar > #logo {
-  background-image: url("../src/images/Banner.png");
+  background-image: url("/images/Banner.png");
   background-size: 200px;
   background-position: center;
   background-repeat: no-repeat;
@@ -101,7 +101,7 @@ main {
 #add {
   grid-area: add;
   border: none;
-  background-image: url("../src/images/add-file.png");
+  background-image: url("/images/add-file.png");
   background-position:left;
   background-repeat:no-repeat;
   background-size:35px;
@@ -110,7 +110,7 @@ main {
 #edit {
   grid-area: edit;
   border: none;
-  background-image: url("../src/images/edit.png");
+  background-image: url("/images/edit.png");
   background-position:left;
   background-repeat:no-repeat;
   background-size:35px;

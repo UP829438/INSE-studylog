@@ -114,7 +114,7 @@ async function addGrade(unitID,gradeTitle,gradeScore,gradeTime){
 }
 
 async function getUnits(googleIdToken) { // returns array of all Unit Names for that User
-  return await mysqlSelect('SELECT ID,name FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken);
+  return await mysqlSelect('SELECT ID,name,colour FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken);
 }
 
 async function getUnit(unitID){ // returns array of all details for that unit

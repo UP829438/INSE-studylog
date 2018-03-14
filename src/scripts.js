@@ -6,13 +6,16 @@
  //  |___/             |___/
  //
 
+//GLOBAL VARIABLES
+let units;
 
 function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
   callServer();
   buttonToggle();
-  //addUser(); Moved this serverside
+  getUnits();
+  units = getUnits();
 }
 
 function signOut() {
@@ -104,8 +107,11 @@ async function getUnits() {
 
   data.forEach((i) => { //loops through adding a new element with the content of the SQL database
     const unitTemplate = document.getElementById('unit').content.cloneNode(true);
-    unitTemplate.querySelector('.unittitle').textContent = i.name; //Set the text to the unit name
-    unitTemplate.querySelector('.unittitle').name = i.ID; //Set the name attribute to the unit ID
+    let unitTitle = unitTemplate.querySelector('.unittitle');
+    unitTitle.textContent = i.name; //Set the text to the unit name
+    unitTitle.name = i.ID; //Set the name attribute to the unit ID
+    console.log(i.colour);
+    unitTitle.style.color = i.colour; //sets colour of attribute to selected unit colour
     unitList.appendChild(unitTemplate);
   });
 }
