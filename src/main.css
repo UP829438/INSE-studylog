@@ -9,6 +9,7 @@
 
 body {
   background-color: #20678c;
+
 }
 
 * {
@@ -20,7 +21,7 @@ body {
 }
 
 #navbar {
-  background-color: #324851;
+  background-color:#6aaacc;
   display: grid;
   width: 100%;
   height: auto;
@@ -35,16 +36,39 @@ body {
   margin: auto;
 }
 
+/* where is were the changes to the logo is dame*/
+/* changed the border for logo to have smoth edges*/
 #navbar > #logo {
   grid-area: head;
-  border-bottom: 1px solid black;
-  ;
+  border : 2px solid #F7E3BE;
+  height: 35px;
+  width: 100%;
+  border-top-right-radius: 22px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 22px;
+  background-color: #F7DBA7;
+}
+
+#navbar > #logo {
+  background-image: url("../src/images/Banner.png");
+  background-size: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #navbar > #signout {
   grid-area: head;
   grid-column: 4;
   color: white;
+  width: 100%;
+  font-size: 25px;
+  border : 2px solid #E0DFD0;
+  border-top-right-radius: 22px;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  background-color: #C6C5B9;
 }
 
 #navbar > button {
@@ -76,14 +100,24 @@ main {
 
 #add {
   grid-area: add;
+  border: none;
+  background-image: url("../src/images/add-file.png");
+  background-position:left;
+  background-repeat:no-repeat;
+  background-size:35px;
 }
 
 #edit {
   grid-area: edit;
+  border: none;
+  background-image: url("../src/images/edit.png");
+  background-position:left;
+  background-repeat:no-repeat;
+  background-size:35px;
 }
 
 .toolbar {
-  background-color: #324851;
+  background-color:#6aaacc;
 }
 
 .toolbar > button {

@@ -104,7 +104,8 @@ async function getUnits() {
 
   data.forEach((i) => { //loops through adding a new element with the content of the SQL database
     const unitTemplate = document.getElementById('unit').content.cloneNode(true);
-    unitTemplate.querySelector('.unittitle').textContent = i.name;
+    unitTemplate.querySelector('.unittitle').textContent = i.name; //Set the text to the unit name
+    unitTemplate.querySelector('.unittitle').name = i.ID; //Set the name attribute to the unit ID
     unitList.appendChild(unitTemplate);
   });
 }
