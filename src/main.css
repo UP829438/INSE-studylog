@@ -103,8 +103,7 @@ main {
   background-color: #4e84a0;
 }
 
-
-#canvasArea {
+.canvasArea {
   width: 100%;
 }
 
@@ -112,8 +111,41 @@ canvas {
   border-style: solid;
   border-color: black;
   background-color: white;
-  transform: scale(1, -1)
+  transform: scale(1, -1);
+  position: relative;
 }
+
+.canvasButton, .toggleButton {
+    background-color: #324851;
+    color: white;
+    margin-top: 5vh;
+    padding: 1.5vh 7.5vw 1.5vh 7.5vw;
+    font-size: 100%;
+    border: none;
+}
+
+.dropdown, .optionChoice {
+    position: relative;
+    display: inline-block;
+    margin: auto 7.5vw auto 7.5vw;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4e84a0;
+}
+
+.dropdown-content a {
+    color: black;
+    width: inherit;
+    text-decoration: none;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ACCBE1}
 
 .show {
   display: block;

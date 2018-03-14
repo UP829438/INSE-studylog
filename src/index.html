@@ -17,7 +17,7 @@
     <h1 id="logo">StudentPlan</h1>
     <div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <div id="signout"><a href="#" onclick="signOut();">Sign out</a></div>
-    <button class="toolbar" id="add" onclick="toggleAdd()" type="button" name="button">Add Unit</button>
+    <button class="toolbar" id="add" type="button" name="button">Add Unit</button>
     <button class="toolbar" id="edit" type="button" name="button">Edit Unit</button>
     <div class="addunit">
       <p>Unit Name:</p>
@@ -36,7 +36,20 @@
           </ul>
       </template>
   <div class="canvasArea">
-    <canvas id="canvas"></canvas>
+    <ul class="canvasContent">
+      <li><canvas id="canvas"></canvas></li>
+      <li>
+        <div class="optionChoice">
+          <button class="toggleButton" onclick="changeGraphChoice()" type="button" name="button">Toggle</button>
+        </div>
+        <div class="dropdown">
+          <button class="canvasButton" onclick="" type="button" name="button">Drop</button>
+          <div id="canvasDropDown" class="dropdown-content">
+            <a href="#">Place Holder</a>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
   </main>
 </body>

@@ -41,7 +41,7 @@ app.get('/api/getunits', async (req, res) => {
   catch (error) {
     console.log("\x1b[31mAPI (ListUnits) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
-  }
+    }
 });
 
 app.post('/api/addunit', async (req, res) => {
@@ -56,5 +56,5 @@ app.post('/api/addunit', async (req, res) => {
   catch (error) {
     console.log("\x1b[31mAPI (AddUnit) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
-  }  
+  }
 });
