@@ -70,21 +70,21 @@ app.post('/api/addscheduleddate', async (req, res) => {
   catch (error) {
     console.log("\x1b[31mAPI (AddScheduledDate) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
-  }  
+  }
 });
 
-app.post('/api/addstudyhours', async (req, res) => {
+app.post('/api/submithours', async (req, res) => {
   try { //If user has no id (not signed in) error will be thrown
-    const unitID = req.query.unitid; //Id of Unit
-    const studyHrs = req.query.hrs; // number of hours studied
-    const studyHrsDay = req.query.day; // day on which hours studied on
+    const unitID = req.query.name; //Id of Unit
+    const studyHrs = req.query.unithours; // number of hours studied
+    const studyHrsDay = req.query.unitday; // day on which hours studied on
     const addStatus = await studylog.addStudyHours(unitID,studyHrs,studyHrsDay); //Add the Studied Hours to the database
     res.send(addStatus); //return to the client whether the Studied Hours was added or not
   }
   catch (error) {
     console.log("\x1b[31mAPI (AddStudyHours) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
-  }  
+  }
 });
 
 app.post('/api/addgrade', async (req, res) => {
@@ -99,7 +99,7 @@ app.post('/api/addgrade', async (req, res) => {
   catch (error) {
     console.log("\x1b[31mAPI (AddGrade) Error: \x1b[37m%s\x1b[0m",error);
     res.send("Server Error: Please log in again");
-  }  
+  }
 });
 
 app.get('/api/getunit', async (req, res) => {

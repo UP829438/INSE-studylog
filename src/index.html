@@ -19,12 +19,21 @@
     <div id="signout"><a href="#" onclick="signOut();">Sign out</a></div>
     <button class="toolbar" id="add" onclick="toggleAdd()" type="button" name="button" disabled>Add Unit</button>
     <button class="toolbar" id="edit" type="button" name="button" disabled>Edit Unit</button>
+    <button class="toolbar" id="log" type="button" name="button">Log Hours</button>
     <div class="addunit">
       <p>Unit Name:</p>
       <input id="addvalue" type="text" name="unit_name" value="">
       <p>Colour:</p>
       <input id="addcolour" type="color" name="color_name" value="000000">
       <input id="addsubmit" type="submit" value="Submit" onclick="addUnit()">
+      <p id="addconfirm"></p>
+    </div>
+    <div class="loghours">
+      <p>Unit:</p>
+      <select class="logselect" name="">
+      </select>
+      <input id="lognumber" type="text" name="" value="">
+      <input id="logsubmit" type="submit" value="Submit" onclick="submitHours()">
       <p id="addconfirm"></p>
     </div>
   </section>

@@ -1,7 +1,7 @@
 :root {
   --nav-area:
   "head head head head"
-  "add edit sign sign2"
+  "add edit log sign2"
   "area area area area";
   --nav-col: repeat(4, 1fr);
   --nav-rows: repeat(2, 1fr);
@@ -75,8 +75,13 @@ body {
   border: none;
 }
 
+#unitable {
+}
+
 #unittable > li {
   outline: 1px solid black;
+  max-height: 10em;
+  max-width: 10em;
 }
 
 main {
@@ -137,6 +142,12 @@ main {
   background-color: #4e84a0;
 }
 
+.loghours {
+  grid-area: area;
+  display: none;
+  background-color: #4e84a0;
+}
+
 .canvasArea {
   width: 100%;
 }
@@ -181,10 +192,14 @@ canvas {
 
 .dropdown-content a:hover {background-color: #ACCBE1}
 
-.show {
-  display: block;
+.none {
+  display: none;
 }
 
-.canvasContent {
-  display :none;
+.canvasArea {
+  display: none;
+}
+
+.show {
+  display: block;
 }

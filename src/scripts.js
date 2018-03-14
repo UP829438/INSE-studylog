@@ -14,13 +14,9 @@ function onSignIn(googleUser) {
   console.log('Logged in as:' + profile.getName());
   document.getElementById("add").disabled = false;
   document.getElementById("edit").disabled = false;
-  var x = document.getElementsByClassName("canvasContent");
-  x.classList.add("show");
-// if the above line of code doesnt work
-// use this one
-// x.style.display = "block"  
   callServer();
   buttonToggle();
+  toggleCanvas();
   getUnits();
   units = getUnits();
 }
@@ -95,6 +91,37 @@ async function addUnit() {
   getUnits();
 }
 
+async function submitHours() {
+  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  let unitID = document.getElementsByClassName('logselect')[0].value;
+  let unitHours = document.getElementById('lognumber').value;
+  let tempday = "2018-01-03";
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + id_token },
+  };
+  let url = '/api/submithours?name=' + unitID + '&unithours=' + unitHours + '&unitday=' + tempday;
+  await fetch(url, fetchOptions).then(function(response) {
+    if (!response.ok) { // This will run if the server api didn't respond or had a problem like 404 etc.
+      throw Error(response.statusText);
+    }
+    else { // If no problems fetching, then unpack the response
+      return response.text();
+    }
+  }).then(function(response){
+    if (response=="true"){ //If the response was 'true' then the Unit was added successfully
+      addConfirm.textContent = "Added to SQL server";
+    }
+    else{ //Unit was not added successfully
+      alert('Could not add Unit!');
+    }
+  })
+  .catch(function(error) {
+    console.log('Fetch problem: \n', error);
+  });
+}
+
 async function getUnits() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   const fetchOptions = {
@@ -113,10 +140,10 @@ async function getUnits() {
   if (data.length == 0) {
     return;
   }
-  testData = {
+  userData = {
     userID: "",
     units: []}
-  testData.userID = data[0].ID;
+  userData.userID = data[0].ID;
   console.log(data);
   data.forEach((i) => { //loops through adding a new element with the content of the SQL database
     const unitTemplate = document.getElementById('unit').content.cloneNode(true);
@@ -125,7 +152,7 @@ async function getUnits() {
     unitTitle.name = i.ID; //Set the name attribute to the unit ID
     unitTitle.style.color = i.colour; //sets colour of attribute to selected unit colour
     unitList.appendChild(unitTemplate);
-    testData.units.push( {
+    userData.units.push( {
       name: i.name,
       unitID: i.ID,
       colour: i.colour,
@@ -133,48 +160,25 @@ async function getUnits() {
     })
   });
   resetCanvas();
-  console.log(testData);
+  console.log(userData);
 }
 
-//Canvas Functions
+
+ //   ____                            _____                 _   _
+ //  / ___|__ _ _ ____   ____ _ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+ // | |   / _` | '_ \ \ / / _` / __| | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+ // | |__| (_| | | | \ V / (_| \__ \ |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+ //  \____\__,_|_| |_|\_/ \__,_|___/ |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+ //
+
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 let graphChoice = 0;
 let currentWeek = "one";
 let weekName = ""
-let testData = {
+let userData = {
   userID: "",
   units: []}
-// const testData = {
-//     userID: "a",
-//     units: [
-//       {
-//         name: "one",
-//         colour: "#4286f4",
-//         hours:6
-//       },
-//       {
-//         name: "two",
-//         colour: "#dc37f2",
-//         hours: 12
-//       },
-//       {
-//         name: "three",
-//         colour: "#d61326",
-//         hours: 3
-//       },
-//       {
-//         name: "four",
-//         colour: "#7286f4",
-//         hours: 1
-//       },
-//       {
-//         name: "four",
-//         colour: "#7286f4",
-//         hours: 1
-//       }
-//     ]
-// }
 const weekData = {
     weekName: "one",
     weeks: [
@@ -201,7 +205,7 @@ const weekData = {
     ]
 }
 
-let currentData = testData;
+let currentData = userData;
 
 
 function setCanvasSize(canvas) {
@@ -218,10 +222,17 @@ function setDropWidth() {
 }
 
 function setPage() {
-  let element = document.getElementById('add')
-  element.addEventListener('click', function(){
+  let add = document.getElementById('add')
+  add.addEventListener('click', function(){
       toggleAdd(".addunit");
+
   });
+
+  let log = document.getElementById('log')
+  log.addEventListener('click', function(){
+      toggleAdd(".loghours");
+  });
+
   let element2 = document.getElementsByClassName('canvasButton')
   element2[0].addEventListener('click', function(){
       toggleAdd(".dropdown-content");
@@ -236,7 +247,7 @@ function setCurrentData(graphChoice, unitTitle) {
   let data;
   switch (graphChoice) {
     case 0: //Overview
-      data = testData;
+      data = userData;
       break;
     case 1: // Single Unit Breakdown
       data = weekData;
@@ -264,7 +275,7 @@ function setButtons(graphChoice, data) {
       while (test.firstChild) {
           test.removeChild(test.firstChild);
       }
-      testData.units.forEach((i) => {
+      userData.units.forEach((i) => {
         let option = document.createElement("A");
         let text = document.createTextNode(i.name);
         option.appendChild(text);
@@ -277,6 +288,7 @@ function setButtons(graphChoice, data) {
 
 function resetCanvas() {
   setButtons(graphChoice, currentData);
+  logHours();
   setDropWidth();
   setCanvasSize(canvas);
   drawGraph();
@@ -442,11 +454,33 @@ window.addEventListener('resize', resetCanvas);
  // |_| \_\___|\__, |\__,_|_|\__,_|_|    |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
  //            |___/
 
+
+function logHours() {
+  let logData = document.getElementById('logoption');
+  let logArea = document.getElementsByClassName('logselect')[0];
+  while (logArea.firstChild) {
+      logArea.removeChild(logArea.firstChild);
+  }
+  userData.units.forEach((i) => {
+  let option = document.createElement("OPTION");
+  let text = document.createTextNode(i.name);
+  option.style.value = i.name;
+  option.appendChild(text);
+  logArea.appendChild(option);
+  console.log(text);
+});
+}
+
  function buttonToggle() {
    let signin = document.getElementById('signin');
    signin.classList.toggle('none');
  };
 
+ function toggleCanvas() {
+   let canvas = document.querySelector('.canvasArea');
+   console.log(canvas);
+   canvas.classList.toggle('show');
+ };
 
  function toggleAdd(className) {
    let content = document.querySelector(className);

@@ -91,7 +91,7 @@ async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
 
 async function addStudyHours(unitID,studyHrs,studyHrsDay){
   const Query = await mysqlInsert(
-    'INSERT INTO StudyHours (unitID,hours,date) VALUES (?,?,?)',
+    'INSERT INTO StudyHours (unitID,hours,date) VALUES ((select ID from Unit WHERE name = ?),?,?)',
     [unitID,studyHrs,studyHrsDay]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
