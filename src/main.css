@@ -41,6 +41,8 @@ body {
 #navbar > #logo {
   grid-area: head;
   border : 2px solid #F7E3BE;
+  height: 35px;
+  width: 100%;
   border-top-right-radius: 22px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 2px;
@@ -48,10 +50,19 @@ body {
   background-color: #F7DBA7;
 }
 
+#navbar > #logo {
+  background-image: url("../src/images/Banner.png");
+  background-size: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 #navbar > #signout {
   grid-area: head;
   grid-column: 4;
   color: white;
+  width: 100%;
+  font-size: 25px;
   border : 2px solid #E0DFD0;
   border-top-right-radius: 22px;
   border-top-left-radius: 22px;
