@@ -117,31 +117,67 @@ async function getUnits() {
 //Canvas Functions
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
+let graphChoice = 0;
+let currentWeek = "one";
+let weekName = ""
 const testData = {
     userName: "a",
     units: [
       {
-        unitName: "one",
-        unitColour: "#4286f4",
-        unitHours:6
+        name: "one",
+        colour: "#4286f4",
+        hours:6
       },
       {
-        unitName: "two",
-        unitColour: "#dc37f2",
-        unitHours: 12
+        name: "two",
+        colour: "#dc37f2",
+        hours: 12
       },
       {
-        unitName: "three",
-        unitColour: "#d61326",
-        unitHours: 3
+        name: "three",
+        colour: "#d61326",
+        hours: 3
       },
       {
-        unitName: "four",
-        unitColour: "#7286f4",
-        unitHours: 1
+        name: "four",
+        colour: "#7286f4",
+        hours: 1
+      },
+      {
+        name: "four",
+        colour: "#7286f4",
+        hours: 1
       }
     ]
 }
+const weekData = {
+    weekName: "one",
+    weeks: [
+      {
+        name: "weekDate1",
+        colour: "#4286f4",
+        hours: 8
+      },
+      {
+        name: "weekDate2",
+        colour: "#dc37f2",
+        hours: 20
+      },
+      {
+        name: "weekDate3",
+        colour: "#d61326",
+        hours: 19
+      },
+      {
+        name: "weekDate4",
+        colour: "#7286f4",
+        hours: 10
+      }
+    ]
+}
+
+let currentData = testData;
+
 
 function setCanvasSize(canvas) {
   let main = (window.innerHeight*0.6);
@@ -149,9 +185,81 @@ function setCanvasSize(canvas) {
   canvas.height = (main);
 }
 
-function resetCanvas() {
+function setDropWidth() {
+  let button = document.getElementsByClassName('canvasButton')[0];
+  let dropdown = document.getElementsByClassName('dropdown-content')[0];
+  let width = button.clientWidth + "px";
+  dropdown.setAttribute("style",`width:${width}`)
+}
+
+function setPage() {
+  let element = document.getElementById('add')
+  element.addEventListener('click', function(){
+      toggleAdd(".addunit");
+  });
+  let element2 = document.getElementsByClassName('canvasButton')
+  element2[0].addEventListener('click', function(){
+      toggleAdd(".dropdown-content");
+  });
+  setButtons(graphChoice, currentData);
+  setDropWidth();
   setCanvasSize(canvas);
   drawGraph();
+}
+
+function setCurrentData(graphChoice, unitTitle) {
+  let data;
+  switch (graphChoice) {
+    case 0: //Overview
+      data = testData;
+      break;
+    case 1: // Single Unit Breakdown
+      data = weekData;
+      break;
+  }
+
+  return data;
+}
+
+function setButtons(graphChoice, data) {
+  let button = document.getElementsByClassName('canvasButton')[0];
+  let test = document.getElementsByClassName('dropdown-content')[0];
+  let choices = document.getElementsByClassName('dropdown-content')[0].children;
+  switch (graphChoice) {
+    case 0: //Overview
+      currentData= setCurrentData(0);
+      button.innerHTML = "Course Overview";
+      while (test.firstChild) {
+          test.removeChild(test.firstChild);
+      }
+      break;
+    case 1: // Single Unit Breakdown
+      currentData = setCurrentData(1, weekName);
+      button.innerHTML = "Choose A Week";
+      while (test.firstChild) {
+          test.removeChild(test.firstChild);
+      }
+      testData.units.forEach((i) => {
+        let option = document.createElement("A");
+        let text = document.createTextNode(i.name);
+        option.appendChild(text);
+        test.appendChild(option);
+      });
+      console.log(choices.length);
+      break;
+  }
+}
+
+function resetCanvas() {
+  setButtons(graphChoice, currentData);
+  setDropWidth();
+  setCanvasSize(canvas);
+  drawGraph();
+}
+
+function changeGraphChoice() {
+  graphChoice = (graphChoice == 0) ? 1 :0;
+  resetCanvas();
 }
 
 function drawLine(c, fX, fY, tX, tY, colour) {
@@ -193,8 +301,8 @@ function drawBox(c, x, y, colour, numberOfUnits) {
   }
 }
 
-function drawText(c, x, y, colour, text, numberOfElemets) {
-  let textSize = Math.floor(canvas.width*(0.2/numberOfElemets));
+function drawText(c, x, y, colour, text, numberOfElemets, sizeMod) {
+  let textSize = Math.floor(canvas.width*(0.2/numberOfElemets)*sizeMod);
   c.save();
   c.textAlign="center";
   c.scale(-1, 1);
@@ -213,15 +321,15 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   switch (type) {
     case 0: // Bar Chart for overview of all units
       let numberOfUnits = data.units.length;
-      let max = getMaxHours(data.units);
+      let max = getMaxHours(data.units, graphChoice);
       if (horizontal) {
         let xdif = (endCoord - startx)/(numberOfUnits+1);
         for (let i = 0; i < numberOfUnits+1; i++) {
           if (i <= numberOfUnits && (i) != 0) {
             let unit = data.units[i - 1];
             let x = startx+(xdif*(i));
-            drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.unitHours), unit.unitColour, numberOfUnits)
-            drawText(c, x, canvas.height*0.025, unit.unitColour, unit.unitName, numberOfUnits)
+            drawBar(c, x, starty, x, getHeight(canvas.height, max, unit.hours), unit.colour, numberOfUnits)
+            drawText(c, x, canvas.height*0.025, unit.colour, unit.name, numberOfUnits, 0.75)
           }
           drawLine(c, startx+(xdif*(i+1)), starty - 5, startx+(xdif*(i+1)), starty +5, "black");
         }
@@ -230,7 +338,7 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
         for (let i = 0; i < 10; i++) {
           drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
           if ((i+1)%5 == 0) {
-            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6)
+            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6, 1)
           }
         }
       }
@@ -238,17 +346,17 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
 
     case 1: // Scatter Graph for breakdown of single unit
       if (horizontal) {
-        let numberOfWeeks = data.units.length;
-        let max = getMaxHours(data.units);
+        let numberOfWeeks = data.weeks.length;
+        let max = getMaxHours(data.weeks, graphChoice);
         let coords = [];
         let xdif = (endCoord - startx)/(numberOfWeeks+1);
         for (let i = 0; i < numberOfWeeks+1; i++) {
           if (i <= numberOfWeeks && (i) != 0) {
-            let week = data.units[i - 1];
+            let week = data.weeks[i - 1];
             let x = startx+(xdif*(i));
-            let y = getHeight(canvas.height, max, week.unitHours);
-            drawBox(c, x, y, week.unitColour, numberOfWeeks)
-            drawText(c, x, canvas.height*0.025, week.unitColour, week.unitName, numberOfWeeks)
+            let y = getHeight(canvas.height, max, week.hours);
+            drawBox(c, x, y, week.colour, numberOfWeeks)
+            drawText(c, x, canvas.height*0.025, week.colour, week.name, numberOfWeeks, 0.5)
             coords.push({x: x, y: y});
           }
           for (let i = 0; i < coords.length - 1; i++) {
@@ -261,11 +369,11 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
         }
       } else {
         let ydif = (endCoord - starty)/10;
-        let max = getMaxHours(data.units);
+        let max = getMaxHours(data.weeks, graphChoice);
         for (let i = 0; i < 10; i++) {
           drawLine(c, startx - 5, starty+(ydif*(i+1)), startx + 5, starty+(ydif*(i+1)), "black");
           if ((i+1)%5 == 0) {
-            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6)
+            drawText(c, canvas.width * 0.05, starty+(ydif*(i+1)) - 5, "black", max*((i+1)/10), 6, 1)
           }
         }
       }
@@ -275,11 +383,12 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   }
 }
 
-function getMaxHours(units) {
+function getMaxHours(data, graphChoice) {
   let max = 0;
-  for (let i = 0; i < units.length; i++) {
-    if (units[i].unitHours >  max) {
-      max = units[i].unitHours;
+  let length = data.length;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].hours >  max) {
+      max = data[i].hours;
     }
   }
 
@@ -291,13 +400,13 @@ function drawGraph() {
   let width = canvas.width;
   let height = canvas.height;
 
-  populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), testData, 1);
-  populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), testData, 1);
+  populateGraph(c, true, width*0.1, height*0.1, width-(width*0.05), currentData, graphChoice);
+  populateGraph(c, false, width*0.1, height*0.1, height-(height*0.05), currentData, graphChoice);
   drawLine(c, width*0.1, height*0.05, width*0.1, height-(height*0.05), "black");
   drawLine(c, width*0.05, height*0.1, width-(width*0.05), height*0.1, "black")
 }
 
-window.addEventListener('load', resetCanvas);
+window.addEventListener('load', setPage);
 window.addEventListener('resize', resetCanvas);
 
 
@@ -309,12 +418,12 @@ window.addEventListener('resize', resetCanvas);
  //            |___/
 
  function buttonToggle() {
-   let signIn = document.getElementById('signin');
-   signIn.classList.toggle('none');
+   let signin = document.getElementById('signin');
+   signin.classList.toggle('none');
  };
 
 
-  function toggleAdd() {
-    let content = document.querySelector(".addunit");
-    content.classList.toggle('show');
-  };
+ function toggleAdd(className) {
+   let content = document.querySelector(className);
+   content.classList.toggle('show');
+ };

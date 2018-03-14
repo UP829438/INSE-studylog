@@ -41,6 +41,8 @@ body {
 #navbar > #logo {
   grid-area: head;
   border : 2px solid #F7E3BE;
+  height: 35px;
+  width: 100%;
   border-top-right-radius: 22px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 2px;
@@ -48,10 +50,19 @@ body {
   background-color: #F7DBA7;
 }
 
+#navbar > #logo {
+  background-image: url("../src/images/Banner.png");
+  background-size: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 #navbar > #signout {
   grid-area: head;
   grid-column: 4;
   color: white;
+  width: 100%;
+  font-size: 25px;
   border : 2px solid #E0DFD0;
   border-top-right-radius: 22px;
   border-top-left-radius: 22px;
@@ -126,8 +137,7 @@ main {
   background-color: #4e84a0;
 }
 
-
-#canvasArea {
+.canvasArea {
   width: 100%;
 }
 
@@ -135,8 +145,41 @@ canvas {
   border-style: solid;
   border-color: black;
   background-color: white;
-  transform: scale(1, -1)
+  transform: scale(1, -1);
+  position: relative;
 }
+
+.canvasButton, .toggleButton {
+    background-color: #324851;
+    color: white;
+    margin-top: 5vh;
+    padding: 1.5vh 7.5vw 1.5vh 7.5vw;
+    font-size: 100%;
+    border: none;
+}
+
+.dropdown, .optionChoice {
+    position: relative;
+    display: inline-block;
+    margin: auto 7.5vw auto 7.5vw;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4e84a0;
+}
+
+.dropdown-content a {
+    color: black;
+    width: inherit;
+    text-decoration: none;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ACCBE1}
 
 .show {
   display: block;
