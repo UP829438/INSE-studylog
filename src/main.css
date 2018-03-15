@@ -214,3 +214,47 @@ canvas {
 .show {
   display: block;
 }
+.planstudy {
+ height: 50px;
+ overflow: hidden;
+ position: relative;
+}
+.planstudy h4 {
+ font-size: 2.5em;
+ color:#000000;
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ -moz-animation: planstudy 15s linear infinite;
+ -webkit-animation: planstudy 15s linear infinite;
+ animation: planstudy 15s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes planstudy {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes planstudy {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes planstudy {
+ 0%   {
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%);
+ }
+ 100% {
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%);
+ }
+}
