@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Unit ( /* create the table for storing Units*/
       ID INT NOT NULL AUTO_INCREMENT,
       userID INT NOT NULL,
       colour CHAR(7) NOT NULL,
-      credits INT DEFAULT 0, /*If no credits defined store as zero and not as a NULL*/
+      hours INT DEFAULT 0, /*If no credits defined store as zero and not as a NULL*/
       name VARCHAR(60) NOT NULL,
       PRIMARY KEY (id),
       FOREIGN KEY (userID) REFERENCES User(ID)
@@ -23,15 +23,6 @@ CREATE TABLE IF NOT EXISTS ScheduledDate ( /*create the table for storing Caland
      title VARCHAR(40) NOT NULL,
      description TEXT NOT NULL,
      time DATETIME NOT NULL,
-     PRIMARY KEY (id),
-     FOREIGN KEY (unitID) REFERENCES Unit(ID) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS StudyHours ( /*create the table for storing Study Hours*/
-     ID INT NOT NULL AUTO_INCREMENT,
-     unitID INT NOT NULL,
-     hours INT NOT NULL,
-     date DATE NOT NULL,
      PRIMARY KEY (id),
      FOREIGN KEY (unitID) REFERENCES Unit(ID) ON DELETE CASCADE
 );

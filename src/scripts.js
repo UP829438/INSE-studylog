@@ -93,7 +93,7 @@ async function addUnit() {
 
 async function submitHours() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-  let unitID = document.getElementsByClassName('logselect')[0].value;
+  let unitID = document.querySelector('.logselect').value;
   let unitHours = document.getElementById('lognumber').value;
   let tempday = "2018-01-03";
   const fetchOptions = {
@@ -144,7 +144,7 @@ async function getUnits() {
     userID: "",
     units: []}
   userData.userID = data[0].ID;
-  console.log(data);
+
   data.forEach((i) => { //loops through adding a new element with the content of the SQL database
     const unitTemplate = document.getElementById('unit').content.cloneNode(true);
     let unitTitle = unitTemplate.querySelector('.unittitle');
@@ -156,11 +156,10 @@ async function getUnits() {
       name: i.name,
       unitID: i.ID,
       colour: i.colour,
-      hours: 5
+      hours: i.hours
     })
   });
   resetCanvas();
-  console.log(userData);
 }
 
 async function getBarchartData(dateFrom) { //Gets the Json for the barchart, only needs the date (gets hours after and including this date)
@@ -500,7 +499,6 @@ function logHours() {
   option.style.value = i.name;
   option.appendChild(text);
   logArea.appendChild(option);
-  console.log(text);
 });
 }
 
@@ -511,7 +509,6 @@ function logHours() {
 
  function toggleCanvas() {
    let canvas = document.querySelector('.canvasArea');
-   console.log(canvas);
    canvas.classList.toggle('show');
  };
 

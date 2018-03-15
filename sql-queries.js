@@ -90,10 +90,8 @@ async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
 }
 
 async function addStudyHours(unitID,studyHrs,studyHrsDay){
-  const Query = await mysqlInsert(
-    'INSERT INTO StudyHours (unitID,hours,date) VALUES ((select ID from Unit WHERE name = ?),?,?)',
-    [unitID,studyHrs,studyHrsDay]
-  );
+  console.log(unitID);
+  const Query = await mysqlSelect('UPDATE Unit SET hours = hours + ? WHERE name = ?', [studyHrs, unitID]);
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
     console.log('\x1b[33mA User Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
     return true; //return true so that client can know Study Hours were added successfully
@@ -114,7 +112,7 @@ async function addGrade(unitID,gradeTitle,gradeScore,gradeTime){
 }
 
 async function getUnits(googleIdToken) { // returns array of all Unit Names for that User
-  return await mysqlSelect('SELECT ID,name,colour FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken);
+  return await mysqlSelect('SELECT ID,name,colour,hours FROM Unit WHERE userID = (SELECT ID FROM User WHERE googleToken = ?);', googleIdToken);
 }
 
 async function getUnit(unitID){ // returns array of all details for that unit
