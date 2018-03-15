@@ -1,0 +1,51 @@
+.content {
+  margin-left: 25%;
+  margin-right: 25%;
+  border-style: solid;
+  border-width: 5px 10px 5px 10px;
+  border-color: white;
+  background-color: white;
+}
+
+.heading {
+  text-align: center;
+  font-weight: bold;
+}
+
+.back {
+  background-color: #F5F5F5;
+}
+
+.text {
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.previousPage {
+  margin:auto;
+  display:block;
+  margin-top: 30px;
+}
+
+ button {
+   background-color: #e7e7e7;
+   border: none;
+   color: black;
+   padding: 10px 40px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   border-radius: 12px;
+   cursor: pointer;
+ }
+
+.aim  {
+  line-height: 1.6;
+  text-align: center;
+}
+
+body {
+    font-family: 'Open Sans';
+}
