@@ -161,8 +161,9 @@ async function getGraphData(graphType,googleIdToken,dateFrom,unitID) { // return
 
 //async function editGrade(various){}
 
-//async function removeUnit(various){}
-
+async function removeUnit(unitID,googleIdToken){ // remove the unit with that ID
+  return await mysqlInsert('DELETE From Unit WHERE ID = ? AND userID = (SELECT ID FROM User WHERE googleToken = ?);', [unitID,googleIdToken]);
+}
 //async function removeScheduledDate(various){}
 
 //async function removeStudyHours(various){}
@@ -187,4 +188,6 @@ module.exports = {
   getStudyHourDetails: getStudyHourDetails,
   getGrades: getGrades,
   getGraphData: getGraphData,
+
+  removeUnit: removeUnit,
 }
