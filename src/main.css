@@ -75,13 +75,24 @@ body {
   border: none;
 }
 
-#unitable {
-}
-
+/*The Unittable it control the layout of the unit and how they are displayed*/
+/*the unittable li max(Height and width) value control how long the unit will be present if the value
+is 2 low it will combine the text*/
 #unittable > li {
+  float: left;
+  text-align: left;
+  display: inline;
   outline: 1px solid black;
   max-height: 10em;
-  max-width: 10em;
+  max-width: 550px;
+}
+#unittable > li a {
+  float: left;
+  display: flex;
+  text-align:right;
+  text-decoration: none;
+  color: white;
+  padding: 20px;
 }
 
 main {
