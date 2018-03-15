@@ -1,216 +1,231 @@
-:root {
-  --nav-area:
-  "head head head head"
-  "add edit log sign2"
-  "area area area area";
-  --nav-col: repeat(4, 1fr);
-  --nav-rows: repeat(2, 1fr);
-}
+/*Pc Scalling*/
+@media only screen and (max-width:8295px) {
+  :root {
+    --nav-area:
+    "head head head head"
+    "add edit log sign2"
+    "area area area area";
+    --nav-col: repeat(4, 1fr);
+    --nav-rows: repeat(2, 1fr);
+  }
+  body {
+    background-color: #20678c;
+  }
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+  }
+  main {
+    display: block;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    height: 100%;
+  }
+  #footer {
+    text-align: left;
+    margin-left: 0.756em;
+    margin-top: 1.456em;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: #f2efdc
+  }
+  #footer {
+    font-size: 25px;
+  }
+  /* where is were the changes the variables of the Navigation Bar*/
+  /* changed the border for logo to have smoth edges*/
+  #navbar {
+    background-color:#6aaacc;
+    display: grid;
+    width: 100%;
+    height: auto;
+    grid-template-columns: repeat(var(--nav-rows));
+    grid-template-rows: var(--nav-rows);
+    grid-template-areas: var(--nav-area);
+  }
+  #navbar > #logo {
+    grid-area: head;
+    border : 2px solid #F7E3BE;
+    height: 35px;
+    width: 100%;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 22px;
+    background-color: #F7DBA7;
+  }
+  #navbar > #logo {
+    background-image: url("/images/Banner.png");
+    background-size: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  #navbar > #signin {
+    grid-area: head;
+    grid-column: 4;
+    margin: auto;
+  }
+  #navbar > #signout {
+    grid-area: head;
+    grid-column: 4;
+    color: white;
+    width: 100%;
+    font-size: 25px;
+    border : 2px solid #E0DFD0;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    background-color: #C6C5B9;
+  }
+  #navbar > button {
+    border: none;
+  }
 
-body {
-  background-color: #20678c;
+  /*The Unittable it controls the layout of the unit and how they are displayed*/
+  /*the unittable li max(Height and width) value control how long the unit will be present if the value
+  is 2 low it will combine the text*/
+  #unittable > li {
+    float: left;
+    text-align: left;
+    display: inline;
+    outline: 1px solid black;
+    max-height: 10em;
+    max-width: 550px;
+  }
+  #unittable > li a {
+    float: left;
+    display: flex;
+    text-align:right;
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+  }
 
-}
+  #sessionover {
+    display: block;
+    text-align: center;
+    padding-top: 5em;
+  }
+  #sessionover h1 {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+  }
 
-* {
-  padding: 0;
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  text-align: center;
+  #add {
+    grid-area: add;
+    border: none;
+    background-image: url("/images/add-file.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+  }
+  #edit {
+    grid-area: edit;
+    border: none;
+    background-image: url("/images/edit.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+  }
 
-}
+  .toolbar {
+    background-color:#6aaacc;
+  }
+  .toolbar > button {
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    color: white;
+  }
+  .toolbar > button:hover {
+    background-color: black;
+  }
+  .addunit {
+    grid-area: area;
+    display: none;
+    background-color: #4e84a0;
+  }
+  .loghours {
+    grid-area: area;
+    display: none;
+    background-color: #4e84a0;
+  }
 
-#navbar {
-  background-color:#6aaacc;
-  display: grid;
-  width: 100%;
-  height: auto;
-  grid-template-columns: repeat(var(--nav-rows));
-  grid-template-rows: var(--nav-rows);
-  grid-template-areas: var(--nav-area);
-}
-
-#navbar > #signin {
-  grid-area: head;
-  grid-column: 4;
-  margin: auto;
-}
-
-/* where is were the changes to the logo is dame*/
-/* changed the border for logo to have smoth edges*/
-#navbar > #logo {
-  grid-area: head;
-  border : 2px solid #F7E3BE;
-  height: 35px;
-  width: 100%;
-  border-top-right-radius: 22px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 22px;
-  background-color: #F7DBA7;
-}
-
-#navbar > #logo {
-  background-image: url("/images/Banner.png");
-  background-size: 200px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#navbar > #signout {
-  grid-area: head;
-  grid-column: 4;
-  color: white;
-  width: 100%;
-  font-size: 25px;
-  border : 2px solid #E0DFD0;
-  border-top-right-radius: 22px;
-  border-top-left-radius: 22px;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-  background-color: #C6C5B9;
-}
-
-#navbar > button {
-  border: none;
-}
-
-/*The Unittable it control the layout of the unit and how they are displayed*/
-/*the unittable li max(Height and width) value control how long the unit will be present if the value
-is 2 low it will combine the text*/
-#unittable > li {
-  float: left;
-  text-align: left;
-  display: inline;
-  outline: 1px solid black;
-  max-height: 10em;
-  max-width: 550px;
-}
-#unittable > li a {
-  float: left;
-  display: flex;
-  text-align:right;
-  text-decoration: none;
-  color: white;
-  padding: 20px;
-}
-
-main {
-  display: block;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  height: 100%;
-}
-
-
-#sessionover {
-  display: block;
-  text-align: center;
-  padding-top: 5em;
-}
-
-#sessionover h1 {
-  border-top: 5px solid black;
-  border-bottom: 5px solid black;
-}
-
-#add {
-  grid-area: add;
-  border: none;
-  background-image: url("/images/add-file.png");
-  background-position:left;
-  background-repeat:no-repeat;
-  background-size:35px;
-}
-
-#edit {
-  grid-area: edit;
-  border: none;
-  background-image: url("/images/edit.png");
-  background-position:left;
-  background-repeat:no-repeat;
-  background-size:35px;
-}
-
-.toolbar {
-  background-color:#6aaacc;
-}
-
-.toolbar > button {
-  border: none;
-  cursor: pointer;
-  background-color: inherit;
-  color: white;
-}
-
-.toolbar > button:hover {
-  background-color: black;
-}
-
-.addunit {
-  grid-area: area;
-  display: none;
-  background-color: #4e84a0;
-}
-
-.loghours {
-  grid-area: area;
-  display: none;
-  background-color: #4e84a0;
-}
-
-.canvasArea {
-  width: 100%;
-}
-
-canvas {
-  border-style: solid;
-  border-color: black;
-  background-color: white;
-  transform: scale(1, -1);
-  position: relative;
-}
-
-.canvasButton, .toggleButton {
+  .canvasArea {
+    display: none;
+  }
+  .canvasArea {
+    width: 100%;
+  }
+  canvas {
+    border-style: solid;
+    border-color: black;
+    background-color: white;
+    transform: scale(1, -1);
+    position: relative;
+  }
+  .canvasButton, .toggleButton {
     background-color: #324851;
     color: white;
     margin-top: 5vh;
     padding: 1.5vh 7.5vw 1.5vh 7.5vw;
     font-size: 100%;
     border: none;
-}
+  }
 
-.dropdown, .optionChoice {
+  .dropdown, .optionChoice {
     position: relative;
     display: inline-block;
     margin: auto 7.5vw auto 7.5vw;
-}
-
-.dropdown-content {
+  }
+  .dropdown-content {
     display: none;
     position: absolute;
     background-color: #4e84a0;
-}
-
-.dropdown-content a {
+  }
+  .dropdown-content a {
     color: black;
     width: inherit;
     text-decoration: none;
     padding-top: 1.5vh;
     padding-bottom: 1.5vh;
     display: block;
+  }
+  .dropdown-content a:hover {background-color: #ACCBE1}
+
+  .none {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
 }
-
-.dropdown-content a:hover {background-color: #ACCBE1}
-
-.none {
-  display: none;
-}
-
-.canvasArea {
-  display: none;
-}
-
-.show {
-  display: block;
+/*Phone Scalling*/
+@media only screen and (max-width:999px) {
+  body {
+    background-color: #20678c;
+  }
+  #navbar {
+    background-color:#f5f5f5;
+    display: grid;
+    width: 100%;
+    height: auto;
+    grid-template-columns: repeat(var(--nav-rows));
+    grid-template-rows: var(--nav-rows);
+    grid-template-areas: var(--nav-area);
+  }
+  #footer {
+      text-align: left;
+      margin-left: 0.176em;
+      margin-top: 1.456em;
+      border: 1px solid black;
+      border-radius: 5px;
+      background: #f2efdc
+    }
+    #footer {
+      font-size: 15px;
+    }
 }
