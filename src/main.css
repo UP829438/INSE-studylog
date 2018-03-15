@@ -148,7 +148,7 @@
     display: none;
     background-color: #4e84a0;
   }
-/*animated buttom- using press shadow */
+  /*animated buttom- using press shadow */
   #log:hover {background-colour:#6aaacc}{
     grid-area:area;
     display:none;
@@ -248,6 +248,45 @@
     grid-template-rows: var(--nav-rows);
     grid-template-areas: var(--nav-area);
   }
+  #navbar > #logo {
+    grid-area: head;
+    border : 2px solid #F7E3BE;
+    height: 35px;
+    width: 100%;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 22px;
+    background-color: #F7DBA7;
+  }
+  #navbar > #logo {
+    background-image: url("/images/Banner.png");
+    background-size: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  #navbar > #signin {
+    grid-area: head;
+    grid-column: 4;
+    margin: auto;
+  }
+  #navbar > #signout {
+    grid-area: head;
+    grid-column: 4;
+    color: white;
+    width: 100%;
+    font-size: 25px;
+    border : 2px solid #E0DFD0;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    background-color: #C6C5B9;
+  }
+  #navbar > button {
+    border: none;
+  }
+
   #footer {
       text-align: left;
       margin-left: 0.176em;
