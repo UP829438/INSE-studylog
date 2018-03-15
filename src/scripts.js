@@ -14,6 +14,7 @@ function onSignIn(googleUser) {
   console.log('Logged in as:' + profile.getName());
   document.getElementById("add").disabled = false;
   document.getElementById("edit").disabled = false;
+  document.getElementById("log").disabled = false;
   callServer();
   buttonToggle();
   toggleCanvas();
@@ -31,6 +32,7 @@ function signOut() {
   });
   document.getElementById("add").disabled = true;
   document.getElementById("edit").disabled = true;
+  document.getElementById("log").disabled = true;
 }
 
 async function callServer() {
