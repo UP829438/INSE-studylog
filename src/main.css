@@ -148,12 +148,43 @@
     display: none;
     background-color: #4e84a0;
   }
-  .loghours {
-    grid-area: area;
-    display: none;
+/*animated buttom- using press shadow */
+  #log:hover {background-colour:#6aaacc}{
+    grid-area:area;
+    display:none;
     background-color: #4e84a0;
+    cursor: pointer;
+    outline: none;
+    color:#fff;
+    border-radius:10px;
+    box-shadow: 0 9px #999;
+  }
+  #log:active {
+    background-color: #06699b;
+    box-shadow: 0 5px #666;
+    transform:translateY(4px);
   }
 
+  #info:hover {background-colour:#6aaacc}{
+    grid-area:area;
+    display:none;
+    background-color: #4e84a0;
+    cursor: pointer;
+    outline: none;
+    color:#fff;
+    border-radius:10px;
+    box-shadow: 0 9px #999;
+  }
+  #info:active {
+    background-color: #06699b;
+    box-shadow: 0 5px #666;
+    transform:translateY(4px);
+  }
+  .loghours {
+    grid-area: area;
+    display:none;
+    grid-column: 1 > 5;
+  }
   .canvasArea {
     display: none;
   }
