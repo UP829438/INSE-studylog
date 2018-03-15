@@ -196,6 +196,36 @@ async function getGraphData(unitID,dateFrom) { //Gets the Json for the graph, ta
   return await response.json();
 }
 
+async function removeUnit() {
+  const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+  let unit_id = "1"; // Add the element where the id stored here (somewhere in the dropdown list?) document.getElementById(?Dropdown?).name;
+  let url = '/api/removeunit?unitid=' + unit_id;
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + id_token },
+  };
+  await fetch(url, fetchOptions).then(function(response) {
+    if (!response.ok) { // This will run if the server api didn't respond or had a problem like 404 etc.
+      throw Error(response.statusText);
+    }
+    else { // If no problems fetching, then unpack the response
+      return response.text();
+    }
+  }).then(function(response){
+    if (response=="true"){ //If the response was 'true' then the Unit was added successfully
+      //put anything to run on confirmation of unit removed successfully here
+      console.log("Removed unit: %s",unit_id);
+    }
+    else{ //Unit was not added successfully
+      alert('Could not remove Unit!');
+    }
+  })
+  .catch(function(error) {
+    console.log('Fetch problem: \n', error);
+  });
+}
+
  //   ____                            _____                 _   _
  //  / ___|__ _ _ ____   ____ _ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
  // | |   / _` | '_ \ \ / / _` / __| | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
