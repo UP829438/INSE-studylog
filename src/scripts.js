@@ -50,6 +50,9 @@ async function callServer() {
   });
 }
 
+function goBack() {
+  window.history.back();
+}
 
  //  ____   ___  _        __                  _   _
  // / ___| / _ \| |      / _|_   _ _ __   ___| |_(_) ___  _ __  ___
