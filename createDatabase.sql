@@ -3,7 +3,7 @@ CREATE DATABASE studylog; /* create the Database to store all the Tables for the
 USE studylog; /* select the new Database*/
 CREATE TABLE IF NOT EXISTS User ( /* create the table for storing Users*/
      ID INT NOT NULL AUTO_INCREMENT,
-     googleToken CHAR(50) UNIQUE NOT NULL,
+     googleToken CHAR(21) UNIQUE NOT NULL,
      PRIMARY KEY (id)
 );
 

@@ -49,13 +49,16 @@ async function mysqlInsert(queryStr,queryVars){ //Runs MySQL Insert Queries and 
 }
 
 async function checkUser(googleIdToken) { //Checks if a user is in the DB and if not adds them
-  const Query = await mysqlSelect('SELECT ID FROM User WHERE googleToken = ?;',googleIdToken);
-  if (Query){ //If the result is NOT undefined(no SQL errors) then continue
-    if (Query==""){
-      addUser(googleIdToken);
+  if (googleIdToken.length == 21) {
+    const Query = await mysqlSelect('SELECT ID FROM User WHERE googleToken = ?;',googleIdToken);
+    if (Query){ //If the result is NOT undefined(no SQL errors) then continue
+      if (Query==""){
+        addUser(googleIdToken);
+      }
+      else {console.log('\x1b[33mUser (%s) Already exists.\x1b[0m',googleIdToken);}
     }
-    else {console.log('\x1b[33mUser (%s) Already exists.\x1b[0m',googleIdToken);}
   }
+  else {console.log('\x1b[31mToken (%s) is invalid. Must be 21 chars\x1b[0m',googleIdToken);}
 }
 
 async function addUser(googleIdToken) {
@@ -67,14 +70,17 @@ async function addUser(googleIdToken) {
 
 async function addUnit(unitName,unitColour,googleIdToken) {
   unitColour = '#' + unitColour;
-  const Query = await mysqlInsert(
-    'INSERT INTO Unit (userID,colour,name) VALUES ((SELECT ID FROM User WHERE googleToken = ?),?,?)',
-    [googleIdToken,unitColour,unitName]
-  );
-  if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mUser: %s Added a New Unit (%s,%s)\x1b[0m', googleIdToken,unitName, unitColour);
-    return true; //return true so that client can know Unit was added successfully
+  if (unitColour.length == 7) {
+    const Query = await mysqlInsert(
+      'INSERT INTO Unit (userID,colour,name) VALUES ((SELECT ID FROM User WHERE googleToken = ?),?,?)',
+      [googleIdToken,unitColour,unitName]
+    );
+    if (Query){ //If Query was successfull (if not then error has already been printed to console)
+      console.log('\x1b[33mUser: %s Added a New Unit (%s,%s)\x1b[0m', googleIdToken,unitName, unitColour);
+      return true; //return true so that client can know Unit was added successfully
+    }
   }
+  else if (unitColour.length != 7) {console.log('\x1b[31munitColour is invalid. Must be 7 chars (#XXXXXX)\x1b[0m');return false;}
   else {return false;} //return false so client can know Unit wasn't added
 }
 
@@ -91,12 +97,15 @@ async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
 }
 
 async function addStudyHours(unitID,studyHrs,studyHrsDay){
-  const Query = await mysqlSelect('UPDATE Unit SET hours = hours + ? WHERE name = ?', [studyHrs, unitID]);
-  if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mA User Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
-    return true; //return true so that client can know Study Hours were added successfully
+  if (!studyHrs.includes(".")&studyHrs>=1&studyHrs<=24) {
+    const Query = await mysqlSelect('UPDATE Unit SET hours = hours + ? WHERE name = ?', [studyHrs, unitID]);
+    if (Query){ //If Query was successfull (if not then error has already been printed to console)
+      console.log('\x1b[33mA User Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
+      return true; //return true so that client can know Study Hours were added successfully
+    }
   }
-  else {return false;} //return false so client can know Study Hours weren't added
+  else if (studyHrs.includes(".")) {console.log('\x1b[31mstudyHrs is invalid. Must be int between 1 and 24\x1b[0m');return false;}
+  else {return false;} //return false so client can know Unit wasn't added
 }
 
 async function addGrade(unitID,gradeTitle,gradeScore,gradeTime){
