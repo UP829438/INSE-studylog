@@ -13,12 +13,9 @@ function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
   document.getElementById("add").disabled = false;
-<<<<<<< Updated upstream
   document.getElementById("edit").disabled = false;
   document.getElementById("log").disabled = false;
-=======
   document.getElementById("delete").disabled = false;
->>>>>>> Stashed changes
   callServer();
   buttonToggle();
   toggleCanvas();
