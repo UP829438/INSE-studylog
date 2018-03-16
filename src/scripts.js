@@ -558,7 +558,7 @@ function drawBox(c, x, y, colour, numberOfUnits) {
  */
 function drawText(c, x, y, colour, text, numberOfElements, sizeMod) {
   let textSize = Math.floor(canvas.width*(0.2/numberOfElements)*sizeMod);
-  if (textSize > canvas.height*0.8) {textSize = canvas.height*0.8}
+  if (textSize > canvas.height*0.08) {textSize = canvas.height*0.08}
   c.save();
   c.textAlign="center";
   c.scale(-1, 1);
