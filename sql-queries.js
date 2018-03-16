@@ -81,6 +81,7 @@ async function addUnit(unitName,unitColour,googleIdToken) {
       console.log('\x1b[33mUser: %s Added a New Unit (%s,%s)\x1b[0m', googleIdToken,unitName, unitColour);
       return true; //return true so that client can know Unit was added successfully
     }
+    else {return false;}//return false so client can know Unit wasn't added
   }
   else if (unitColour.length != 7) {console.log('\x1b[31munitColour is invalid. Must be 7 chars (#XXXXXX)\x1b[0m');return false;}
   else if (!(unitName.length>=1&unitName.length<=60)) {console.log('\x1b[31munitName is invalid. Must be 1-60 chars\x1b[0m');return false;}
@@ -202,4 +203,5 @@ module.exports = {
   getGraphData: getGraphData,
 
   removeUnit: removeUnit,
+  sqlConn: mysqlConnection, //needed for testing
 }
