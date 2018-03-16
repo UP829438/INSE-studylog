@@ -2,10 +2,10 @@
 @media only screen and (max-width:8295px) {
   :root {
     --nav-area:
-    "head head head head"
-    "add edit log sign2"
-    "area area area area";
-    --nav-col: repeat(4, 1fr);
+    "head head head head head"
+    "add edit log  delete sign2"
+    "area area area area area";
+    --nav-col: repeat(5, 1fr);
     --nav-rows: repeat(2, 1fr);
   }
   body {
@@ -64,12 +64,12 @@
   }
   #navbar > #signin {
     grid-area: head;
-    grid-column: 4;
+    grid-column: 5;
     margin: auto;
   }
   #navbar > #signout {
     grid-area: head;
-    grid-column: 4;
+    grid-column: 5;
     color: white;
     width: 100%;
     font-size: 25px;
@@ -79,6 +79,11 @@
     border-bottom-left-radius: 22px;
     border-bottom-right-radius: 22px;
     background-color: #C6C5B9;
+  }
+  #navbar > #info {
+    grid-row: 2;
+    grid-column: 5;
+    background-color: #6aaacc;
   }
   #navbar > button {
     border: none;
@@ -114,63 +119,6 @@
     border-bottom: 5px solid black;
   }
 
-  #add {
-    grid-area: add;
-    border: none;
-    background-image: url("/images/add-file.png");
-    background-position:left;
-    background-repeat:no-repeat;
-    background-size:35px;
-  }
-
-  #add:active {
-    background-color:#6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
-  }
-  
-  #edit {
-    grid-area: edit;
-    border: none;
-    background-image: url("/images/edit.png");
-    background-position:left;
-    background-repeat:no-repeat;
-    background-size:35px;
-
-  }
-  #edit:active {
-    background-color:#6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
-  }
-
-  .toolbar {
-    background-color:#6aaacc;
-  }
-  .toolbar > button {
-    border: none;
-    cursor: pointer;
-    background-color: inherit;
-    color: white;
-  }
-  .toolbar > button:hover {
-    background-color: black;
-  }
-  .addunit {
-    grid-area: area;
-    display: none;
-    background-color: #4e84a0;
-  }
-  .deleteunit {
-      grid-area: area;
-      display: none;
-      background-color: #4e84a0;
-  }
-  #info {
-    grid-area: head;
-    grid-column: 1;
-    background-color: #F7DBA7;
-  }
   /*animated buttom- using press shadow */
   #log:hover {background-colour:#6aaacc}{
     grid-area:area;
@@ -203,6 +151,75 @@
     box-shadow: 0 5px #6aaacc;
     transform:translateY(4px);
   }
+
+  #info:hover {background-colour:#6aaacc}{
+    grid-area:area;
+    display:none;
+    background-color: #4e84a0;
+    cursor: pointer;
+    outline: none;
+    color:#fff;
+    border-radius:10px;
+    box-shadow: 0 9px #999;
+  }
+  #info:active {
+    background-color: #06699b;
+    box-shadow: 0 5px #7BB0E5;
+    transform:translateY(4px);
+  }
+
+  #add {
+    grid-area: add;
+    border: none;
+    background-image: url("/images/add-file.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+  }
+  #add:active {
+    background-color:#6aaacc;
+    box-shadow: 0 5px #6aaacc;
+    transform:translateY(4px);
+  }
+
+  #edit {
+    grid-area: edit;
+    border: none;
+    background-image: url("/images/edit.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+
+  }
+  #edit:active {
+    background-color:#6aaacc;
+    box-shadow: 0 5px #6aaacc;
+    transform:translateY(4px);
+  }
+
+  /*Were is the css style related to the javaScript function*/
+  .toolbar {
+    background-color:#6aaacc;
+  }
+  .toolbar > button {
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    color: white;
+  }
+  .toolbar > button:hover {
+    background-color: black;
+  }
+  .addunit {
+    grid-area: area;
+    display: none;
+    background-color: #4e84a0;
+  }
+  .deleteunit {
+      grid-area: area;
+      display: none;
+      background-color: #4e84a0;
+  }
   .loghours {
     grid-area: area;
     display:none;
@@ -231,7 +248,6 @@
     font-size: 100%;
     border: none;
   }
-
   .dropdown, .optionChoice {
     position: relative;
     display: inline-block;
@@ -251,7 +267,6 @@
     display: block;
   }
   .dropdown-content a:hover {background-color: #ACCBE1}
-
   .none {
     display: none;
   }
@@ -261,9 +276,31 @@
 }
 /*Phone Scalling*/
 @media only screen and (max-width:999px) {
+  :root {
+    --nav-area:
+    "head head head head head"
+    "add edit log  delete sign2"
+    "area area area area area";
+    --nav-col: repeat(5, 1fr);
+    --nav-rows: repeat(2, 1fr);
+  }
   body {
     background-color: #20678c;
   }
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+  }
+  main {
+    display: block;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    height: 100%;
+  }
+  /* where is were the changes the variables of the Navigation Bar for the phoen variation*/
+  /* changed the border for logo to have smoth edges*/
   #navbar {
     display: grid;
     width: 100%;
@@ -291,12 +328,12 @@
   }
   #navbar > #signin {
     grid-area: head;
-    grid-column: 4;
+    grid-column: 5;
     margin: auto;
   }
   #navbar > #signout {
     grid-area: head;
-    grid-column: 4;
+    grid-column: 5;
     color: white;
     width: 100%;
     font-size: 25px;
@@ -310,6 +347,11 @@
   #navbar > button {
     border: none;
   }
+
+  button#info.toolbar {
+
+  }
+
   #footer {
       text-align: left;
       margin-left: 0.176em;
