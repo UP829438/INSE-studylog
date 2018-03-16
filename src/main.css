@@ -370,13 +370,14 @@
   #navbar > #logo {
     background-image: url("/images/Banner.png");
     background-size: 200px;
-    background-position: center;
+    background-position: left;;
     background-repeat: no-repeat;
   }
   #navbar > #signin {
     grid-area: head;
     grid-column: 1;
-    margin: auto;
+    margin-left: 68%;
+    width: 30%;
   }
   #navbar > #signout {
     grid-area: head;
@@ -493,9 +494,9 @@
     opacity: 0.6;
     background-color: #0E103D;
     background-image: url("/images/add-fileWhite.png");
-    background-position:left;
+    background-position:3px 3px;
     background-repeat:no-repeat;
-    background-size:35px;
+    background-size:25px;
   }
   #add:hover {
     opacity: 1;
@@ -516,9 +517,9 @@
     opacity: 0.6;
     background-color: #0E103D;
     background-image: url("/images/editWhite.png");
-    background-position:left;
+    background-position:3px 3px;
     background-repeat:no-repeat;
-    background-size:35px;
+    background-size:25px;
   }
   #edit:hover {
     opacity: 1;
