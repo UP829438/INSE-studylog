@@ -3,7 +3,7 @@
   :root {
     --nav-area:
     "head head head head head"
-    "add edit log  delete sign2"
+    "add edit log delete sign2"
     "area area area area area";
     --nav-col: repeat(5, 1fr);
     --nav-rows: repeat(2, 1fr);
@@ -70,7 +70,6 @@
   #navbar > #signout {
     grid-area: head;
     grid-column: 5;
-    color: white;
     width: 100%;
     font-size: 25px;
     border : 2px solid #E0DFD0;
@@ -80,10 +79,8 @@
     border-bottom-right-radius: 22px;
     background-color: #C6C5B9;
   }
-  #navbar > #info {
-    grid-row: 2;
-    grid-column: 5;
-    background-color: #6aaacc;
+  #navbar > #signout a:hover{
+    color: #0E103D;
   }
   #navbar > button {
     border: none;
@@ -120,81 +117,106 @@
   }
 
   /*animated buttom- using press shadow */
-  #log:hover {background-colour:#6aaacc}{
-    grid-area:area;
-    display:none;
-    background-color:#6aaacc;
-    cursor: pointer;
-    outline: none;
-    color:#fff;
-    border-radius:10px;
-    box-shadow: 0 5px #6aaacc;
+  #log {
+    grid-area:log;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #log:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   #log:active {
-    background-color:#6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
-  #delete:hover {background-colour:#6aaacc}{
-    grid-area:area;
-    display:none;
-    background-color: #6aaacc;
-    cursor: pointer;
-    outline: none;
-    color:#fff;
-    border-radius:10px;
-    box-shadow: 0 9px #6aaacc;
+  #delete {
+    grid-area: delete;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #delete:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   #delete:active {
-    background-color: #6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
+    background-color: #0E103D;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
-  #info:hover {background-colour:#6aaacc}{
-    grid-area:area;
-    display:none;
-    background-color: #4e84a0;
-    cursor: pointer;
-    outline: none;
-    color:#fff;
-    border-radius:10px;
-    box-shadow: 0 9px #999;
+  #info {
+    grid-area: sign2;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #info:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   #info:active {
-    background-color: #06699b;
-    box-shadow: 0 5px #7BB0E5;
-    transform:translateY(4px);
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   #add {
     grid-area: add;
     border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
     background-image: url("/images/add-file.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
   }
+  #add:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
   #add:active {
-    background-color:#6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   #edit {
     grid-area: edit;
     border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
     background-image: url("/images/edit.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
-
+  }
+  #edit:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   #edit:active {
-    background-color:#6aaacc;
-    box-shadow: 0 5px #6aaacc;
-    transform:translateY(4px);
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   /*Were is the css style related to the javaScript function*/
@@ -247,6 +269,11 @@
     padding: 1.5vh 7.5vw 1.5vh 7.5vw;
     font-size: 100%;
     border: none;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   .dropdown, .optionChoice {
     position: relative;
@@ -287,18 +314,7 @@
   body {
     background-color: #20678c;
   }
-  * {
-    padding: 0;
-    margin: 0;
-    font-family: 'Open Sans', sans-serif;
-    text-align: center;
-  }
-  main {
-    display: block;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    height: 100%;
-  }
+
   /* where is were the changes the variables of the Navigation Bar for the phoen variation*/
   /* changed the border for logo to have smoth edges*/
   #navbar {
