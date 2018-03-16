@@ -186,7 +186,7 @@
     color: white;
     opacity: 0.6;
     background-color: #0E103D;
-    background-image: url("/images/add-file.png");
+    background-image: url("/images/add-fileWhite.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
@@ -209,7 +209,7 @@
     color: white;
     opacity: 0.6;
     background-color: #0E103D;
-    background-image: url("/images/edit.png");
+    background-image: url("/images/editWhite.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
@@ -492,7 +492,7 @@
     color: white;
     opacity: 0.6;
     background-color: #0E103D;
-    background-image: url("/images/add-file.png");
+    background-image: url("/images/add-fileWhite.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
@@ -515,7 +515,7 @@
     color: white;
     opacity: 0.6;
     background-color: #0E103D;
-    background-image: url("/images/edit.png");
+    background-image: url("/images/editWhite.png");
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
