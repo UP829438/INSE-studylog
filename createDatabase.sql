@@ -27,6 +27,15 @@ CREATE TABLE IF NOT EXISTS ScheduledDate ( /*create the table for storing Caland
      FOREIGN KEY (unitID) REFERENCES Unit(ID) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS StudyHours ( /*create the table for storing Study Hours*/
+     ID INT NOT NULL AUTO_INCREMENT,
+     unitID INT NOT NULL,
+     hours INT NOT NULL,
+     date DATE NOT NULL,
+     PRIMARY KEY (id),
+     FOREIGN KEY (unitID) REFERENCES Unit(ID) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS Grade ( /*create the table for Grades*/
      ID INT NOT NULL AUTO_INCREMENT,
      unitID INT NOT NULL,

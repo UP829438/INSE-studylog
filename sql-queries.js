@@ -70,7 +70,7 @@ async function addUser(googleIdToken) {
 
 async function addUnit(unitName,unitColour,googleIdToken) {
   unitColour = '#' + unitColour;
-  if (unitColour.length == 7) {
+  if (unitColour.length == 7 & (unitName.length>=1&unitName.length<=60)) {
     const Query = await mysqlInsert(
       'INSERT INTO Unit (userID,colour,name) VALUES ((SELECT ID FROM User WHERE googleToken = ?),?,?)',
       [googleIdToken,unitColour,unitName]
@@ -81,6 +81,7 @@ async function addUnit(unitName,unitColour,googleIdToken) {
     }
   }
   else if (unitColour.length != 7) {console.log('\x1b[31munitColour is invalid. Must be 7 chars (#XXXXXX)\x1b[0m');return false;}
+  else if (!(unitName.length>=1&unitName.length<=60)) {console.log('\x1b[31munitName is invalid. Must be 1-60 chars\x1b[0m');return false;}
   else {return false;} //return false so client can know Unit wasn't added
 }
 
