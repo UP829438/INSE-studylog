@@ -48,3 +48,15 @@ git clone https://github.com/UP829438/INSE-studylog.git
 # Get the database working
 
 Just run the SQL in createDatabase.sql in your VM mysql.
+
+# Get the testing working
+
+```
+-- download the testing folder
+
+-- open the testing folder and click the on directory then type 'cmd' then press enter to open the cmd with the directory
+
+-- type 'pipe install selenium' to the cmd to download and install selenium to the folder - make sure you already installed python 3.6
+
+-- open any IDE with python (if not install one and make sure you have selenium installed) and run the test.py file
+```
