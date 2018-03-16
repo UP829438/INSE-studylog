@@ -122,6 +122,13 @@
     background-repeat:no-repeat;
     background-size:35px;
   }
+
+  #add:active {
+    background-color:#6aaacc;
+    box-shadow: 0 5px #6aaacc;
+    transform:translateY(4px);
+  }
+  
   #edit {
     grid-area: edit;
     border: none;
@@ -129,6 +136,12 @@
     background-position:left;
     background-repeat:no-repeat;
     background-size:35px;
+
+  }
+  #edit:active {
+    background-color:#6aaacc;
+    box-shadow: 0 5px #6aaacc;
+    transform:translateY(4px);
   }
 
   .toolbar {
@@ -162,32 +175,32 @@
   #log:hover {background-colour:#6aaacc}{
     grid-area:area;
     display:none;
-    background-color: #4e84a0;
+    background-color:#6aaacc;
     cursor: pointer;
     outline: none;
     color:#fff;
     border-radius:10px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0 5px #6aaacc;
   }
   #log:active {
-    background-color: #06699b;
-    box-shadow: 0 5px #666;
+    background-color:#6aaacc;
+    box-shadow: 0 5px #6aaacc;
     transform:translateY(4px);
   }
 
-  #info:hover {background-colour:#6aaacc}{
+  #delete:hover {background-colour:#6aaacc}{
     grid-area:area;
     display:none;
-    background-color: #4e84a0;
+    background-color: #6aaacc;
     cursor: pointer;
     outline: none;
     color:#fff;
     border-radius:10px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0 9px #6aaacc;
   }
-  #info:active {
-    background-color: #06699b;
-    box-shadow: 0 5px #666;
+  #delete:active {
+    background-color: #6aaacc;
+    box-shadow: 0 5px #6aaacc;
     transform:translateY(4px);
   }
   .loghours {
