@@ -115,6 +115,10 @@ function goBack() {
  // |____/ \__\_\_____| |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
 
+/**
+ * Calls the server to add a new unit to the database, formats the request,
+ * logs the response and calls for the client to update its local unit list
+ */
 async function addUnit() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   let unit_name = document.getElementById('addvalue').value;
@@ -148,6 +152,11 @@ async function addUnit() {
   getUnits();
 }
 
+/**
+ * Calls the server to submit hours to a unit that is laready in the database,
+ * formats the request, logs the response and calls for the client to update
+ * its local unit list
+ */
 async function submitHours() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   let unitID = document.querySelector('.logselect').value;
@@ -179,6 +188,10 @@ async function submitHours() {
   });
 }
 
+/**
+ * Calls the server to send the client the JSON data regarding the units, this
+ * also calls for the graph to be updated.
+ */
 async function getUnits() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   const fetchOptions = {
@@ -219,6 +232,10 @@ async function getUnits() {
   resetCanvas();
 }
 
+/**
+ * Calls the server and requests for JSON formatted data that can be used to
+ * populate the graph
+ */
 async function getBarchartData(dateFrom) { //Gets the Json for the barchart, only needs the date (gets hours after and including this date)
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   const fetchOptions = {
@@ -236,6 +253,11 @@ async function getBarchartData(dateFrom) { //Gets the Json for the barchart, onl
   return await response.json();
 }
 
+
+/**
+ * Calls the server and requests for JSON formatted data for a particular unit
+ * that can be used to populate the graph
+ */
 async function getGraphData(unitID,dateFrom) { //Gets the Json for the graph, takes the unitID and the date (gets hours for each day after and including this date)
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   const fetchOptions = {
@@ -253,6 +275,11 @@ async function getGraphData(unitID,dateFrom) { //Gets the Json for the graph, ta
   return await response.json();
 }
 
+
+/**
+ * Calls the server and requests for a unit to be removed from the database
+ * and resets the graph
+ */
 async function removeUnit() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   let unitID = document.querySelector('.delselect').value;
@@ -281,6 +308,7 @@ async function removeUnit() {
   .catch(function(error) {
     console.log('Fetch problem: \n', error);
   });
+  resetCanvas();
 }
 
  //   ____                            _____                 _   _
@@ -675,7 +703,9 @@ window.addEventListener('resize', resetCanvas);
  // |_| \_\___|\__, |\__,_|_|\__,_|_|    |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
  //            |___/
 
-
+ /**
+  * Add the current users units to the options for logging hours
+  */
 function logHours() {
   let logData = document.getElementById('logoption');
   let logArea = document.getElementsByClassName('logselect')[0];
@@ -690,6 +720,8 @@ function logHours() {
   logArea.appendChild(option);
 });
 }
+
+
 function logUnits() {
   let logArea = document.getElementsByClassName('delselect')[0];
   while (logArea.firstChild) {
@@ -704,23 +736,36 @@ function logUnits() {
 });
 }
 
-
+/**
+ * Toggles the show class for the delete options, allowing them to be seen by
+ * the user
+ */
 function toggleDelete() {
     let delArea = document.querySelector('.deleteunit');
     delArea.classList.toggle('show');
 }
 
- function buttonToggle() {
-   let signin = document.getElementById('signin');
-   signin.classList.toggle('none');
- }
+/**
+ * Toggles the show none class for sign in element within the DOM Model
+ */
+function buttonToggle() {
+  let signin = document.getElementById('signin');
+  signin.classList.toggle('none');
+}
 
- function toggleCanvas() {
-   let canvas = document.querySelector('.canvasArea');
-   canvas.classList.toggle('show');
- }
+/**
+ * Toggles the show class for the canvas area, showing it to signed in users
+ */
+function toggleCanvas() {
+  let canvas = document.querySelector('.canvasArea');
+  canvas.classList.toggle('show');
+}
 
- function toggleAdd(className) {
-   let content = document.querySelector(className);
-   content.classList.toggle('show');
- }
+/**
+ * Toggles the show class for the add options, allowing them to be seen by
+ * the user
+ */
+function toggleAdd(className) {
+  let content = document.querySelector(className);
+  content.classList.toggle('show');
+}

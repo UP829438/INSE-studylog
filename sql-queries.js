@@ -3,7 +3,8 @@
 const mysql = require('mysql2/promise');
 const config = require('./config.json');
 
-var mysqlConn = null;
+let mysqlConn = null;
+
 async function mysqlConnection() //Handles MySQL Database connections
 {
   if (mysqlConn) //If a connection already exists
