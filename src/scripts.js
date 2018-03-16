@@ -33,6 +33,7 @@ function signOut() {
   document.getElementById("add").disabled = true;
   document.getElementById("edit").disabled = true;
   document.getElementById("log").disabled = true;
+  document.getElementById("delete").disabled = true;
 }
 
 async function callServer() {
