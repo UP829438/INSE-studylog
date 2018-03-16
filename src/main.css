@@ -305,14 +305,30 @@
 @media only screen and (max-width:999px) {
   :root {
     --nav-area:
-    "head head head head head"
-    "add edit log  delete sign2"
-    "area area area area area";
-    --nav-col: repeat(5, 1fr);
-    --nav-rows: repeat(2, 1fr);
+    "head"
+    "add"
+    "edit"
+    "log"
+    "delete"
+    "sign2"
+    "area";
+    --nav-col: repeat(1, 1fr);
+    --nav-rows: repeat(1, 1fr);
   }
   body {
     background-color: #20678c;
+  }
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+  }
+  main {
+    display: block;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    height: 100%;
   }
 
   /* where is were the changes the variables of the Navigation Bar for the phoen variation*/
@@ -344,14 +360,15 @@
   }
   #navbar > #signin {
     grid-area: head;
-    grid-column: 5;
+    grid-column: 1;
     margin: auto;
   }
   #navbar > #signout {
     grid-area: head;
-    grid-column: 5;
+    grid-column: 1;
     color: white;
-    width: 100%;
+    width: 30%;
+    margin-left: auto;
     font-size: 25px;
     border : 2px solid #E0DFD0;
     border-top-right-radius: 22px;
@@ -364,10 +381,223 @@
     border: none;
   }
 
-  button#info.toolbar {
-
+  /*The Unittable it controls the layout of the unit and how they are displayed*/
+  /*the unittable li max(Height and width) value control how long the unit will be present if the value
+  is 2 low it will combine the text*/
+  #unittable > li {
+    float: left;
+    text-align: left;
+    display: inline;
+    outline: 1px solid black;
+    max-height: 10em;
+    max-width: 550px;
+  }
+  #unittable > li a {
+    float: left;
+    display: flex;
+    text-align:right;
+    text-decoration: none;
+    color: white;
+    padding: 20px;
   }
 
+  #sessionover {
+    display: block;
+    text-align: center;
+    padding-top: 5em;
+  }
+  #sessionover h1 {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+  }
+
+  /*animated buttom- using press shadow */
+  #log {
+    grid:log;
+    font-size: 21px;
+    color: white;
+    width: 100%;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #log:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #log:active {
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  #delete {
+    grid-area: delete;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #delete:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #delete:active {
+    background-color: #0E103D;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  #info {
+    grid-area: sign2;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+  }
+  #info:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #info:active {
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  #add {
+    grid-area: add;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+    background-image: url("/images/add-file.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+  }
+  #add:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #add:active {
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  #edit {
+    grid-area: edit;
+    border: none;
+    font-size: 21px;
+    color: white;
+    opacity: 0.6;
+    background-color: #0E103D;
+    background-image: url("/images/edit.png");
+    background-position:left;
+    background-repeat:no-repeat;
+    background-size:35px;
+  }
+  #edit:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  #edit:active {
+    background-color: #0E103D;
+    box-shadow: 0.8px 6px #1F225B;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  /*Were is the css style related to the javaScript function*/
+  .toolbar {
+    background-color:#6aaacc;
+  }
+  .toolbar > button {
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    color: white;
+  }
+  .toolbar > button:hover {
+    background-color: black;
+  }
+  .addunit {
+    grid-area: area;
+    display: none;
+    background-color: #4e84a0;
+  }
+  .deleteunit {
+      grid-area: area;
+      display: none;
+      background-color: #4e84a0;
+  }
+  .loghours {
+    grid-area: area;
+    display:none;
+    grid-column: 1;
+  }
+  .deleteunit {
+    grid-area: area;
+    display:none;
+    grid-column: 1 ;
+  }
+  .canvasArea {
+    width: 100%;
+  }
+  canvas {
+    border-style: solid;
+    border-color: black;
+    height: 30%;
+    width: 90%;
+    background-color: white;
+    transform: scale(1.08, -1);
+    position: relative;
+  }
+  .canvasButton, .toggleButton {
+    background-color: #324851;
+    color: white;
+    margin-top: 5vh;
+    padding: 1.5vh 7.5vw 1.5vh 7.5vw;
+    font-size: 100%;
+    border: none;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  .dropdown, .optionChoice {
+    position: relative;
+    display: inline-block;
+    margin: auto 7.5vw auto 7.5vw;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4e84a0;
+  }
+  .dropdown-content a {
+    color: black;
+    width: inherit;
+    text-decoration: none;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    display: block;
+  }
+  .dropdown-content a:hover {background-color: #ACCBE1}
+  .none {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
   #footer {
       text-align: left;
       margin-left: 0.176em;
