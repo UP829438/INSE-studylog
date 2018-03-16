@@ -49,3 +49,33 @@
 body {
     font-family: 'Open Sans';
 }
+button.previousPage {
+  background-color: #0081AB;
+  color: white;
+}
+main {
+  border-width: 8px;
+  border-color:  #ADACA9;
+  border-style: solid;;
+  margin-left: 340px;
+  margin-right: 340px;
+}
+@media only screen and (max-width:999px) {
+
+  main {
+    border-width: 8px;
+    border-color:  #ADACA9;
+    border-style: solid;;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .text {
+    line-height: 1.5;
+    text-align: left;
+  }
+  .aim  {
+    line-height: 1.5;
+    text-align: left;
+  }
+
+}
