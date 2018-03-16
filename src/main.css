@@ -1,4 +1,4 @@
-/*Pc Scalling*/
+/*Pc Scalling */
 @media only screen and (max-width:8295px) {
   :root {
     --nav-area:
@@ -11,6 +11,7 @@
   body {
     background-color: #20678c;
   }
+  /*font style, text alignment and page aligment all specified */
   * {
     padding: 0;
     margin: 0;
@@ -85,7 +86,6 @@
   #navbar > button {
     border: none;
   }
-
   /*The Unittable it controls the layout of the unit and how they are displayed*/
   /*the unittable li max(Height and width) value control how long the unit will be present if the value
   is 2 low it will combine the text*/
@@ -115,8 +115,9 @@
     border-top: 5px solid black;
     border-bottom: 5px solid black;
   }
-
+  /*id selectors used specifically for each nav bar button to style elements within the id*/
   /*animated buttom- using press shadow */
+  /*#log -loghours button */
   #log {
     grid-area:log;
     font-size: 21px;
@@ -124,17 +125,22 @@
     opacity: 0.6;
     background-color: #0E103D;
   }
+
+  /*hover- highlights when mouse is over the log hours navigation bar*/
   #log:hover {
     opacity: 1;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
+  /*active- button press effect only when the users click on the tab */
+
   #log:active {
     background-color: #0E103D;
     box-shadow: 0.8px 6px #1F225B;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-
+  /*grid-area needed to specify the size and location of items on the grid*/
+  /*#delete- Delete unit button */
   #delete {
     grid-area: delete;
     border: none;
@@ -153,7 +159,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-
+  /*#info- About us button */
   #info {
     grid-area: sign2;
     border: none;
@@ -172,7 +178,8 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-
+  /*icon for add and edit tab are added as background image, adjusted and aligned */
+  /*#add- add unit button*/
   #add {
     grid-area: add;
     border: none;
@@ -195,7 +202,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-
+  /*#edit - edit unit button*/
   #edit {
     grid-area: edit;
     border: none;
@@ -234,30 +241,23 @@
   }
   .addunit {
     grid-area: area;
-    grid-column: 1;
     display: none;
-    color: white;
-    background-color: #337896;
+    background-color: #4e84a0;
   }
   .deleteunit {
       grid-area: area;
       display: none;
-      color: white;
-      background-color: #337896;
+      background-color: #4e84a0;
   }
   .loghours {
     grid-area: area;
     display:none;
-    grid-column: 3;
-    color: white;
-    background-color: #337896;
+    grid-column: 1 > 5;
   }
   .deleteunit {
     grid-area: area;
     display:none;
-    grid-column: 4;
-    color: white;
-    background-color: #337896;
+    grid-column: 1 > 5;
   }
   .canvasArea {
     width: 100%;
@@ -318,9 +318,7 @@
     "log"
     "delete"
     "sign2"
-    "area"
-    "area51"
-    "ara69";
+    "area";
     --nav-col: repeat(1, 1fr);
     --nav-rows: repeat(1, 1fr);
   }
@@ -405,7 +403,6 @@
     float: left;
     display: flex;
     text-align:right;
-    font-size: 12px;
     text-decoration: none;
     color: white;
     padding: 20px;
@@ -541,24 +538,22 @@
   .addunit {
     grid-area: area;
     display: none;
-    grid-row: 7;
     background-color: #4e84a0;
   }
   .deleteunit {
-      grid-area: ara69;
+      grid-area: area;
       display: none;
-
       background-color: #4e84a0;
   }
   .loghours {
-    grid-area: area51;
+    grid-area: area;
     display:none;
-    background-color: #4e84a0;
+    grid-column: 1;
   }
   .deleteunit {
-    grid-area: area51;
+    grid-area: area;
     display:none;
-    grid-column ;
+    grid-column: 1 ;
   }
   .canvasArea {
     width: 100%;
