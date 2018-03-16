@@ -9,6 +9,49 @@
 //GLOBAL VARIABLES
 let unit;
 
+const canvas = document.getElementById("canvas");
+const c = canvas.getContext("2d");
+let graphChoice = 0;
+let currentWeek = "one";
+let weekName = ""
+let userData = {
+  userID: "",
+  units: []}
+const weekData = {
+    weekName: "one",
+    weeks: [
+      {
+        name: "weekDate1",
+        colour: "#4286f4",
+        hours: 8
+      },
+      {
+        name: "weekDate2",
+        colour: "#dc37f2",
+        hours: 20
+      },
+      {
+        name: "weekDate3",
+        colour: "#d61326",
+        hours: 19
+      },
+      {
+        name: "weekDate4",
+        colour: "#7286f4",
+        hours: 10
+      }
+    ]
+}
+
+let currentData = userData;
+
+/**
+ * When a user signs in this function is called to activate parts of the website
+ * that can be accessed by the user.
+ *
+ * @param {Object} googleUser
+ * An object of the signed in user and their google details
+ */
 function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
@@ -22,6 +65,10 @@ function onSignIn(googleUser) {
   getUnits();
 }
 
+/**
+ * On sign out this function disables all of the functions that are permitted to
+ * signed out users. Also shows the "Session Over" screen iin the DOM
+ */
 function signOut() {
   let auth2 = gapi.auth2.getAuthInstance();
   let signOut = document.getElementById('signout');
@@ -36,6 +83,10 @@ function signOut() {
   document.getElementById("delete").disabled = true;
 }
 
+/**
+ * Calls the serer logging whether a new user is signing in or if the userID is
+ * already eith error catching for maintenance of the server and functions.
+ */
 async function callServer() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   const fetchOptions = {
@@ -239,49 +290,22 @@ async function removeUnit() {
  //  \____\__,_|_| |_|\_/ \__,_|___/ |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
  //
 
-const canvas = document.getElementById("canvas");
-const c = canvas.getContext("2d");
-let graphChoice = 0;
-let currentWeek = "one";
-let weekName = ""
-let userData = {
-  userID: "",
-  units: []}
-const weekData = {
-    weekName: "one",
-    weeks: [
-      {
-        name: "weekDate1",
-        colour: "#4286f4",
-        hours: 8
-      },
-      {
-        name: "weekDate2",
-        colour: "#dc37f2",
-        hours: 20
-      },
-      {
-        name: "weekDate3",
-        colour: "#d61326",
-        hours: 19
-      },
-      {
-        name: "weekDate4",
-        colour: "#7286f4",
-        hours: 10
-      }
-    ]
-}
-
-let currentData = userData;
-
-
+ /**
+  * Changes the height and width of the canvas element that is passed through
+  * the canvas parameter in proportion to the height and width of the window
+  *
+  * @param {HTMLElement} canvas
+  * Canvas element within the DOM Model
+  */
 function setCanvasSize(canvas) {
   let main = (window.innerHeight*0.6);
   canvas.width = (window.innerWidth*0.6);
   canvas.height = (main);
 }
 
+/**
+ * Sets the width of the drop menu for changing the displayed week
+ */
 function setDropWidth() {
   let button = document.getElementsByClassName('canvasButton')[0];
   let dropdown = document.getElementsByClassName('dropdown-content')[0];
@@ -289,6 +313,11 @@ function setDropWidth() {
   dropdown.setAttribute("style",`width:${width}`)
 }
 
+/**
+ * Initialises the event listeners for all buttons, whilst calling the functons
+ * that set the size of the canvas and associated buttons. Also calls for the
+ * graph to be drawn on its canvas.
+ */
 function setPage() {
   let add = document.getElementById('add')
   add.addEventListener('click', function(){
@@ -311,6 +340,17 @@ function setPage() {
   drawGraph();
 }
 
+/**
+ * sets the currentData that the graph will use
+ *
+ * @param {Int} graphChoice
+ * Integer that corresponds to which case iin the switch should be executed
+ * @param {String} unitTitle
+ * String that indicates which unit should be shown if the case requires
+ *
+ * @return {JSON}
+ * Returns the data that the graph will use to plot
+ */
 function setCurrentData(graphChoice, unitTitle) {
   let data;
   switch (graphChoice) {
@@ -325,6 +365,15 @@ function setCurrentData(graphChoice, unitTitle) {
   return data;
 }
 
+/**
+ * Sets the drop down options for the graph buttons
+ *
+ * @param {Int} graphChoice
+ * Integer that corresponds to which case iin the switch should be executed
+ * @param {JSON} data
+ * The JSON Data that will be used to pull which options should be added to the
+ * drop down menu
+ */
 function setButtons(graphChoice, data) {
   let button = document.getElementsByClassName('canvasButton')[0];
   let test = document.getElementsByClassName('dropdown-content')[0];
@@ -354,6 +403,11 @@ function setButtons(graphChoice, data) {
   }
 }
 
+/**
+ * Resets the graph, buttons and log data. To be called when the page is loaded,
+ * the size of the page changes using event listeners, the graph data changes,
+ * or the data requested changes
+ */
 function resetCanvas() {
   setButtons(graphChoice, currentData);
   logHours();
@@ -363,21 +417,58 @@ function resetCanvas() {
   drawGraph();
 }
 
+/**
+ * Flips the graphChoice variable between the different graph choices. 0 or 1.
+ */
 function changeGraphChoice() {
   graphChoice = (graphChoice == 0) ? 1 :0;
   resetCanvas();
 }
 
-function drawLine(c, fX, fY, tX, tY, colour) {
+/**
+ * Draws a line on a canvas
+ *
+ * @param {HTMLElement} c
+ * The 2D-Context of a canvas to be drawn on.
+ * @param {Number} fX
+ * X co-ordinate for the first point of the line
+ * @param {Number} fY
+ * Y co-ordinate for the first point of the line
+ * @param {Number} sX
+ * X co-ordinate for the Second point of the line
+ * @param {Number} sY
+ * Y co-ordinate for the Second point of the line
+ * @param {String} colour
+ * The colour of the line
+ */
+function drawLine(c, fX, fY, sX, sY, colour) {
   c.beginPath();
   c.lineWidth = 2;
   c.strokeStyle = colour;
   c.fillStyle = colour;
   c.moveTo(fX,fY);
-  c.lineTo(tX,tY);
+  c.lineTo(sX,sY);
   c.stroke();
 }
 
+/**
+ * Draws a bar for a bar chart on a canvas
+ *
+ * @param {HTMLElement} c
+ * The 2D-Context of a canvas to be drawn on.
+ * @param {Number} fX
+ * X co-ordinate for the first point of the line
+ * @param {Number} fY
+ * Y co-ordinate for the first point of the line
+ * @param {Number} sX
+ * X co-ordinate for the Second point of the bar
+ * @param {Number} sY
+ * Y co-ordinate for the Second point of the bar
+ * @param {String} colour
+ * The colour of the line
+ * @param {Number} numberOfUnits
+ * The number of units
+ */
 function drawBar(c, fX, fY, sX, sY, colour, numberOfUnits) {
   let barWidth = (canvas.width/2)/(numberOfUnits*2.5)
   c.beginPath();
@@ -391,6 +482,20 @@ function drawBar(c, fX, fY, sX, sY, colour, numberOfUnits) {
   c.stroke();
 }
 
+/**
+ * Draws a box with the centre marked on a canvas
+ *
+ * @param {HTMLElement} c
+ * The 2D-Context of a canvas to be drawn on.
+ * @param {Number} x
+ * X co-ordinate for the centre of the box
+ * @param {Number} y
+ * Y co-ordinate for the centre of the box
+ * @param {String} colour
+ * The colour of the line
+ * @param {Number} numberOfUnits
+ * The number of units
+ */
 function drawBox(c, x, y, colour, numberOfUnits) {
   for (let i = 1; i < 9; i+=7) {
     let barWidth = (canvas.width/2)/(numberOfUnits*(8*i))
@@ -407,8 +512,25 @@ function drawBox(c, x, y, colour, numberOfUnits) {
   }
 }
 
-function drawText(c, x, y, colour, text, numberOfElemets, sizeMod) {
-  let textSize = Math.floor(canvas.width*(0.2/numberOfElemets)*sizeMod);
+/**
+ * Draws a text on a canvas
+ *
+ * @param {HTMLElement} c
+ * The 2D-Context of a canvas to be drawn on.
+ * @param {Number} x
+ * X co-ordinate for the centre of the box
+ * @param {Number} y
+ * Y co-ordinate for the centre of the box
+ * @param {String} colour
+ * The colour of the line
+ * @param {Number} numberOfElements
+ * The number of elements
+ * @param {Number} sizeMod
+ * Used to fine tune the size  of the text
+ */
+function drawText(c, x, y, colour, text, numberOfElements, sizeMod) {
+  let textSize = Math.floor(canvas.width*(0.2/numberOfElements)*sizeMod);
+  if (textSize > canvas.height*0.8) {textSize = canvas.height*0.8}
   c.save();
   c.textAlign="center";
   c.scale(-1, 1);
@@ -419,6 +541,25 @@ function drawText(c, x, y, colour, text, numberOfElemets, sizeMod) {
   c.restore();
 }
 
+/**
+ * Draws the graph on to a canvas
+ *
+ * @param {HTMLElement} c
+ * The 2D-Context of a canvas to be drawn on.
+ * @param {Boolean} horizontal
+ * Boolean indicating the current driection of the graph line being drawn
+ * @param {Number} startx
+ * X co-ordinate for the start position if the canvas
+ * @param {Number} starty
+ * Y co-ordinate for the start position if the canvas
+ * @param {String} endCoord
+ * Shows the ending x or y dependant on horizontal
+ * @param {JSON} data
+ * The data that will be plotted on to the graph
+ * @param {Number} type
+ * Used to indicate which case of the switch will be executed. Corresponds to
+ * the graphType
+ */
 function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   function getHeight(canvasHeight, max, hours) {
     return ((canvasHeight-(canvasHeight*0.15))*(hours/max))+(canvasHeight*0.1)
@@ -489,6 +630,15 @@ function populateGraph(c, horizontal, startx, starty, endCoord, data, type) {
   }
 }
 
+/**
+ * Gets the heighest number of hours from a data set
+ *
+ * @param {JSON} data
+ * The data that will be searched
+ * @param {Number} type
+ * Used to indicate which case of the switch will be executed. Corresponds to
+ * the graphType
+ */
 function getMaxHours(data, graphChoice) {
   let max = 0;
   let length = data.length;
@@ -501,8 +651,10 @@ function getMaxHours(data, graphChoice) {
   return max;
 }
 
+/**
+ * Calls all the necessary function in order to draw and populate the graph
+ */
 function drawGraph() {
-  //let userData = getUserData(getUserID());
   let width = canvas.width;
   let height = canvas.height;
 
