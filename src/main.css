@@ -1,4 +1,4 @@
-/*Pc Scalling */
+/*Pc Scalling*/
 @media only screen and (max-width:8295px) {
   :root {
     --nav-area:
@@ -86,6 +86,7 @@
   #navbar > button {
     border: none;
   }
+
   /*The Unittable it controls the layout of the unit and how they are displayed*/
   /*the unittable li max(Height and width) value control how long the unit will be present if the value
   is 2 low it will combine the text*/
@@ -125,14 +126,12 @@
     opacity: 0.6;
     background-color: #0E103D;
   }
-
   /*hover- highlights when mouse is over the log hours navigation bar*/
   #log:hover {
     opacity: 1;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
   /*active- button press effect only when the users click on the tab */
-
   #log:active {
     background-color: #0E103D;
     box-shadow: 0.8px 6px #1F225B;
@@ -241,23 +240,30 @@
   }
   .addunit {
     grid-area: area;
+    grid-column: 1;
     display: none;
-    background-color: #4e84a0;
+    color: white;
+    background-color: #337896;
   }
   .deleteunit {
       grid-area: area;
       display: none;
-      background-color: #4e84a0;
+      color: white;
+      background-color: #337896;
   }
   .loghours {
     grid-area: area;
     display:none;
-    grid-column: 1 > 5;
+    grid-column: 3;
+    color: white;
+    background-color: #337896;
   }
   .deleteunit {
     grid-area: area;
     display:none;
-    grid-column: 1 > 5;
+    grid-column: 4;
+    color: white;
+    background-color: #337896;
   }
   .canvasArea {
     width: 100%;
@@ -318,7 +324,9 @@
     "log"
     "delete"
     "sign2"
-    "area";
+    "area"
+    "area51"
+    "ara69";
     --nav-col: repeat(1, 1fr);
     --nav-rows: repeat(1, 1fr);
   }
@@ -403,6 +411,7 @@
     float: left;
     display: flex;
     text-align:right;
+    font-size: 12px;
     text-decoration: none;
     color: white;
     padding: 20px;
@@ -538,22 +547,23 @@
   .addunit {
     grid-area: area;
     display: none;
+    grid-row: 7;
     background-color: #4e84a0;
   }
   .deleteunit {
-      grid-area: area;
+      grid-area: ara69;
       display: none;
       background-color: #4e84a0;
   }
   .loghours {
-    grid-area: area;
+    grid-area: area51;
     display:none;
-    grid-column: 1;
+    background-color: #4e84a0;
   }
   .deleteunit {
-    grid-area: area;
+    grid-area: area51;
     display:none;
-    grid-column: 1 ;
+    grid-column ;
   }
   .canvasArea {
     width: 100%;
