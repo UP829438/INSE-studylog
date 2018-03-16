@@ -18,8 +18,13 @@
     <div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <div id="signout"><a href="#" onclick="signOut();">Sign out</a></div>
     <button class="toolbar" id="add" onclick="toggleAdd()" type="button" name="button" disabled>Add Unit</button>
+<<<<<<< Updated upstream
     <button class="toolbar" id="edit" type="button" name="button" disabled>Edit Unit</button>
     <button class="toolbar" id="log" type="button" name="button" disabled>Log Hours</button>
+=======
+    <button class="toolbar" id="delete" onclick="toggleDelete()" type="button" name="button">Delete Unit</button>
+    <button class="toolbar" id="log" type="button" name="button">Log Hours</button>
+>>>>>>> Stashed changes
     <button class="toolbar" id="info" onclick="window.location.href='AboutUs.html'" type="button" name="button">About Us</button>
     <form class="addunit">
       <p>Unit Name:</p>
@@ -35,7 +40,12 @@
       </select>
       <input id="lognumber" type="number" name="" value="1" min="1" max="24">
       <input id="logsubmit" type="submit" value="Submit" onclick="submitHours()">
-      <p id="addconfirm"></p>
+    </form>
+    <form class="deleteunit">
+      <p>Unit:</p>
+      <select class="delselect" name="">
+      </select>
+      <input id="delsubmit" type="submit" value="Submit" onclick="removeUnit()">
     </form>
   </section>
   <main id="main">

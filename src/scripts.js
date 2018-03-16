@@ -13,13 +13,16 @@ function onSignIn(googleUser) {
   let profile = googleUser.getBasicProfile();
   console.log('Logged in as:' + profile.getName());
   document.getElementById("add").disabled = false;
+<<<<<<< Updated upstream
   document.getElementById("edit").disabled = false;
   document.getElementById("log").disabled = false;
+=======
+  document.getElementById("delete").disabled = false;
+>>>>>>> Stashed changes
   callServer();
   buttonToggle();
   toggleCanvas();
   getUnits();
-  units = getUnits();
 }
 
 function signOut() {
@@ -203,11 +206,11 @@ async function getGraphData(unitID,dateFrom) { //Gets the Json for the graph, ta
 
 async function removeUnit() {
   const id_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-  let unit_id = "1"; // Add the element where the id stored here (somewhere in the dropdown list?) document.getElementById(?Dropdown?).name;
-  let url = '/api/removeunit?unitid=' + unit_id;
+  let unitID = document.querySelector('.delselect').value;
+  let url = '/api/removeunit?unitid=' + unitID;
   const fetchOptions = {
     credentials: 'same-origin',
-    method: 'POST',
+    method: 'DELETE',
     headers: { 'Authorization': 'Bearer ' + id_token },
   };
   await fetch(url, fetchOptions).then(function(response) {
@@ -220,7 +223,7 @@ async function removeUnit() {
   }).then(function(response){
     if (response=="true"){ //If the response was 'true' then the Unit was added successfully
       //put anything to run on confirmation of unit removed successfully here
-      console.log("Removed unit: %s",unit_id);
+      console.log("Removed unit: %s",unitID);
     }
     else{ //Unit was not added successfully
       alert('Could not remove Unit!');
@@ -356,6 +359,7 @@ function setButtons(graphChoice, data) {
 function resetCanvas() {
   setButtons(graphChoice, currentData);
   logHours();
+  logUnits();
   setDropWidth();
   setCanvasSize(canvas);
   drawGraph();
@@ -536,18 +540,37 @@ function logHours() {
   logArea.appendChild(option);
 });
 }
+function logUnits() {
+  let logArea = document.getElementsByClassName('delselect')[0];
+  while (logArea.firstChild) {
+      logArea.removeChild(logArea.firstChild);
+  }
+  userData.units.forEach((i) => {
+  let option = document.createElement("OPTION");
+  let text = document.createTextNode(i.name);
+  option.style.value = i.name;
+  option.appendChild(text);
+  logArea.appendChild(option);
+});
+}
+
+
+function toggleDelete() {
+    let delArea = document.querySelector('.deleteunit');
+    delArea.classList.toggle('show');
+}
 
  function buttonToggle() {
    let signin = document.getElementById('signin');
    signin.classList.toggle('none');
- };
+ }
 
  function toggleCanvas() {
    let canvas = document.querySelector('.canvasArea');
    canvas.classList.toggle('show');
- };
+ }
 
  function toggleAdd(className) {
    let content = document.querySelector(className);
    content.classList.toggle('show');
- };
+ }

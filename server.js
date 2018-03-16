@@ -33,7 +33,7 @@ app.get('/api/getstudyhours', getStudyHours);
 app.get('/api/getstudyhoursdetails', getStudyHourDetails);
 app.get('/api/getgrades', getGrades);
 app.get('/api/getgraphdata', getGraphData);
-app.post('/api/removeunit', removeUnit);
+app.delete('/api/removeunit', removeUnit);
 
 //Server Functions
 
@@ -208,9 +208,8 @@ async function getBarChartData(req, res) {
 
 async function removeUnit(req, res) {
   try { //If user has no id (not signed in) error will be thrown
-    const userId = req.user.id; //GoogleAuth ID
     const unitID = req.query.unitid; //Id of Unit
-    const removeStatus = await studylog.removeUnit(unitID,userId);
+    const removeStatus = await studylog.removeUnit(unitID);
     res.send(removeStatus); //return to the client whether sql successful or not
   }
   catch (error) {

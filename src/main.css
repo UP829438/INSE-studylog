@@ -148,6 +148,16 @@
     display: none;
     background-color: #4e84a0;
   }
+  .deleteunit {
+      grid-area: area;
+      display: none;
+      background-color: #4e84a0;
+  }
+  #info {
+    grid-area: head;
+    grid-column: 1;
+    background-color: #F7DBA7;
+  }
   /*animated buttom- using press shadow */
   #log:hover {background-colour:#6aaacc}{
     grid-area:area;
@@ -185,8 +195,10 @@
     display:none;
     grid-column: 1 > 5;
   }
-  .canvasArea {
-    display: none;
+  .deleteunit {
+    grid-area: area;
+    display:none;
+    grid-column: 1 > 5;
   }
   .canvasArea {
     width: 100%;
@@ -240,7 +252,6 @@
     background-color: #20678c;
   }
   #navbar {
-    background-color:#f5f5f5;
     display: grid;
     width: 100%;
     height: auto;
@@ -286,7 +297,6 @@
   #navbar > button {
     border: none;
   }
-
   #footer {
       text-align: left;
       margin-left: 0.176em;

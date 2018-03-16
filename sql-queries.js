@@ -90,7 +90,6 @@ async function addScheduledDate(unitID,dateTitle,dateDesc,dateTime){
 }
 
 async function addStudyHours(unitID,studyHrs,studyHrsDay){
-  console.log(unitID);
   const Query = await mysqlSelect('UPDATE Unit SET hours = hours + ? WHERE name = ?', [studyHrs, unitID]);
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
     console.log('\x1b[33mA User Added a New Study Hours (%s,%s)\x1b[0m', studyHrs,studyHrsDay);
@@ -161,8 +160,8 @@ async function getGraphData(graphType,googleIdToken,dateFrom,unitID) { // return
 
 //async function editGrade(various){}
 
-async function removeUnit(unitID,googleIdToken){ // remove the unit with that ID
-  return await mysqlInsert('DELETE From Unit WHERE ID = ? AND userID = (SELECT ID FROM User WHERE googleToken = ?);', [unitID,googleIdToken]);
+async function removeUnit(unitID){ // remove the unit with that ID
+  return await mysqlInsert('DELETE From Unit WHERE name = ?;', [unitID]);
 }
 //async function removeScheduledDate(various){}
 
