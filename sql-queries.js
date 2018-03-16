@@ -56,9 +56,11 @@ async function checkUser(googleIdToken) { //Checks if a user is in the DB and if
         addUser(googleIdToken);
       }
       else {console.log('\x1b[33mUser (%s) Already exists.\x1b[0m',googleIdToken);}
+      return true;
     }
+    return false;
   }
-  else {console.log('\x1b[31mToken (%s) is invalid. Must be 21 chars\x1b[0m',googleIdToken);}
+  else {console.log('\x1b[31mToken (%s) is invalid. Must be 21 chars\x1b[0m',googleIdToken);return false;}
 }
 
 async function addUser(googleIdToken) {
