@@ -21,14 +21,16 @@ UPTylerD = UP811402
 start your VM (https://www.port.ac.uk/myvm)
 
 * launch a connection and create the directory you want for the github repository using mkdir and navigate to it with cd 'the name'
+$~: mkdir exampleDirectory
+$~: cd exampleDirectory
 
 * clone the INSE studylog repository and install all required packages for the server to run
 ```
-git clone https://github.com/UP829438/INSE-studylog.git
+$~: git clone https://github.com/UP829438/INSE-studylog.git
 
-npm install
+$~: npm install
 
-npm start
+$~: npm start
 ```
 * you can now enter the ip for your VM and the server should come up.
 
