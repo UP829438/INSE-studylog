@@ -13,14 +13,14 @@ chrome_options = Options()
 chrome_options.add_argument('--start-maximized')
 
 driver = webdriver.Chrome('./chromedriver', chrome_options = chrome_options)
-time .sleep(3)
+time.sleep(3)
 
 # open the link to the webpage
 driver.get('http://up829438.myvm.port.ac.uk/')
 
-time .sleep(3)
+time.sleep(3)
 
-# function to allow the script to continue on the google signin pop up
+# function to allow the script to continue on the google sign in pop up
 main_window_handle = None
 while not main_window_handle:
     main_window_handle = driver.current_window_handle
@@ -52,7 +52,7 @@ except TimeoutException:
 
 time.sleep(2)
 
-# force the page to timeout to allow google to prcoess the login details and allow the user to login to the account
+# force the page to timeout to allow google to process the login details and allow the user to login to the account
 try:
     element_present = EC.presence_of_element_located((By.ID, 'element_id'))
 except TimeoutException:
