@@ -17,7 +17,7 @@ driver = webdriver.Chrome('./chromedriver', chrome_options = chrome_options)
 # open the link to the webpage
 driver.get('http://up823183.myvm.port.ac.uk/')
 
-time .sleep(3)
+time.sleep(3)
 
 # function to allow the script to continue on the google signin pop up
 main_window_handle = None
